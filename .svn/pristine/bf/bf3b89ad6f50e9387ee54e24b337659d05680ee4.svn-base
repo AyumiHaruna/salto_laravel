@@ -1,0 +1,615 @@
+@extends('layouts.mainLayout')
+
+
+  @section('title')
+      Bienvenido
+  @endsection
+
+  @include('partials._header')
+
+  @section('extraheader')
+    <link rel="stylesheet" href="{{ asset('css/info/style.css') }}">
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="{{ asset('img/info/icono_saltum.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('img/info/icono_saltum.png') }}" type="image/x-icon">
+
+    <!-- jquery-ui -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+
+    <!-- animaciones de entrada en textos -->
+    <link href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script>
+
+    <!-- carousel -->
+    <!-- <script src="{{ asset('js/jquery.ui.touch-punch.min.js') }}"></script>
+    <link href="{{ asset('css/ma5slider.css') }}" rel="stylesheet" type="text/css">
+    <script src="{{ asset('js/ma5slider.min.js') }}"></script> -->
+
+    <!-- slick -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/info/slick.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/info/slick-theme.css') }}"/>
+    <script src="{{ asset('js/slick.js') }}"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/> -->
+    <!-- <script type="text/javascript" src="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> -->
+
+  @endsection
+
+
+  @section('content')
+    <div class="container-fluid">
+
+      <!-- 1st background -->
+      <div class="parallax-window1 row justify-content-end" data-parallax="scroll" data-image-src="{{ url('img/info/foto01.png') }}" id="block-bg1">
+        <div class="col-md-6 text-center bigText" data-aos="fade-left" data-aos-duration="900">
+          <div>
+            La mejor jugada para tu salud.
+          </div>
+          <div>
+            <a href="{{ url('/register') }}"><button type="button" name="button" class="btn hoverButton">Comienza ahora.</button></a>
+          </div>
+        </div>
+        <div class="col-md-12 text-center" id="block-bg1-2" data-aos="fade-up" data-aos-duration="700">
+          Define, diseña y alcanza tus metas de salud y bienestar acompañado de nuestro
+          equipo que te impulsará a dar el salto.
+        </div>
+      </div>
+
+      <!-- carousel -->
+      <div class="row">
+       <div class="col-md-6 carouselHeader">
+         ¿Algo de esto te suena?
+       </div>
+     </div>
+      <div class="row carousel">
+        <div class="col-md-12 carouselDiv" id="slide-01-01">
+          <div class="row">
+            <div class="col-md-6 carouselText">
+              &nbsp;
+            </div>
+            <div class="col-md-6 text-left carouselText">
+              “¡Ahora sí me voy a poner en forma!”
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 carouselDiv" id="slide-01-02">
+          <div class="row">
+            <div class="col-md-6 carouselText">
+              &nbsp;
+            </div>
+            <div class="col-md-6 text-left carouselText">
+              “¡Deseo manejar mis niveles de estrés!”
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 carouselDiv" id="slide-01-03">
+          <div class="row">
+            <div class="col-md-6 carouselText">
+              &nbsp;
+            </div>
+            <div class="col-md-6 text-left carouselText">
+              “¡Ya me quiero liberar del cigarro!”
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 carouselDiv" id="slide-01-04">
+          <div class="row">
+            <div class="col-md-6 carouselText">
+              &nbsp;
+            </div>
+            <div class="col-md-6 text-left carouselText">
+              “¡Anhelo descubrir mi propósito en la vida!”
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 carouselDiv" id="slide-01-05">
+          <div class="row">
+            <div class="col-md-6 carouselText">
+              &nbsp;
+            </div>
+            <div class="col-md-6 text-left carouselText">
+              “¡Esta vez sí voy a seguir mi dieta!”
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 carouselDiv" id="slide-01-06">
+          <div class="row">
+            <div class="col-md-6 carouselText">
+              &nbsp;
+            </div>
+            <div class="col-md-6 text-left carouselText">
+              “¡Quiero levantarme con energía por la mañana!”
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- block2 -->
+      <div class="parallax-window2 row" data-parallax="scroll" data-image-src="{{ url('img/info/cielo.png') }}" id="block2">
+        <div class="col-md-12 text-center" data-aos="fade-up" data-aos-duration="500">
+          Cambiar vale la pena y se puede.
+        </div>
+      </div>
+
+      <!-- block3 -->
+      <div class="row" id="block3">
+        <div class="col-md-12" id="sub1">
+          <h1>Descubre cómo:</h1>
+            Un coach es el guía que te acompañará en tu proceso de cambio de salud y bienestar. &nbsp; En este trayecto tu eliges los
+            aspectos de vida que deseas mejorar, así mismo se te brindará motivación confianza, estrategias y habilidades para
+            alcanzar el éxito.
+        </div>
+        <div class="col-md-5">
+          <div class="row align-items-center block-icon" data-aos="fade-right" data-aos-duration="500">
+            <div class="col-3 text-right" >
+              <img src="{{ asset('img/info/icon01.png') }}">
+            </div>
+            <div class="col-9">
+              Sesión en vivo
+            </div>
+          </div>
+
+          <div class="row align-items-center block-icon" data-aos="fade-right" data-aos-duration="500">
+            <div class="col-3 text-right">
+              <img src="{{ asset('img/info/icon02.png') }}" alt="">
+            </div>
+            <div class="col-9">
+              90 minutos en la primer sesión <br>
+              45 mins. en las sesiones siguientes
+          </div>
+        </div>
+
+          <div class="row align-items-center block-icon" data-aos="fade-right" data-aos-duration="500">
+            <div class="col-3 text-right">
+              <img src="{{ asset('img/info/icon03.png') }}" alt="">
+            </div>
+            <div class="col-9">
+              Sesión en línea o vía telefónica
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 text-center" data-aos="fade-up" data-aos-duration="500">
+          <a href="{{ url('/register') }}"><button type="button" name="button" class="btn hoverButton">Comienza ahora.</button></a>
+        </div>
+      </div>
+
+      <!-- block4 -->
+      <div class="row justify-content-center" id="block4">
+        <div class="col-md-12" id="sub1">
+          Coaches certificados
+        </div>
+
+        <div class="col-md-4 text-center coachContainer" data-aos="flip-left" data-aos-duration="500">
+          <img src="{{ asset('img/info/anasofiabavoni.png') }}" alt="">
+          <div class="name">
+            Ana Sofia Bavoni
+          </div>
+        </div>
+
+        <div class="col-md-4 text-center coachContainer" data-aos="flip-left" data-aos-duration="500">
+          <img src="{{ asset('img/info/pilargarcia.png') }}" alt="">
+          <div class="name">
+            Pilar García
+          </div>
+        </div>
+
+        <div class="col-md-4 text-center coachContainer" data-aos="flip-left" data-aos-duration="500">
+          <img src="{{ asset('img/info/rodrigoescorza.png') }}" alt="">
+          <div class="name">
+            Rodrigo Escorza
+          </div>
+        </div>
+
+        <div class="col-md-4 text-center coachContainer" data-aos="flip-left" data-aos-duration="500">
+          <img src="{{ asset('img/info/paulinarodriguez.png') }}" alt="">
+          <div class="name">
+            Paulina Rodríguez
+          </div>
+        </div>
+
+        <div class="col-md-4 text-center coachContainer" data-aos="flip-left" data-aos-duration="500">
+          <img src="{{ asset('img/info/rossyaguilera.png') }}" alt="">
+          <div class="name">
+            Rossy Aguilera
+          </div>
+        </div>
+
+        <div class="col-md-4 text-center coachContainer" data-aos="flip-left" data-aos-duration="500">
+          <img src="{{ asset('img/info/paulinaflores.png') }}" alt="">
+          <div class="name">
+            Paulina Flores
+          </div>
+        </div>
+
+        <div class="col-md-4 text-center coachContainer" data-aos="flip-left" data-aos-duration="500">
+          <img src="{{ asset('img/info/usycastillo.png') }}" alt="">
+          <div class="name">
+            Usy Castillo
+          </div>
+        </div>
+
+        <div class="col-md-4 text-center coachContainer" data-aos="flip-left" data-aos-duration="500">
+          <img src="{{ asset('img/info/paulinaalanis.png') }}" alt="">
+          <div class="name">
+            Paulina Alanís
+          </div>
+        </div>
+      </div>
+
+      <!-- block5 -->
+      <div class="row" id="block5">
+        <div class="col-md-4 offset-md-4 text-center" data-aos="fade-up" data-aos-duration="500">
+          Certificados por: <br>
+          <img src="{{ asset('img/info/Salutis_Logo.png') }}" alt="" id="imgCertificado">
+        </div>
+      </div>
+
+      <!-- block6 -->
+      <div class="row" id="block6">
+        <div class="col-md-12 text-center" data-aos="fade-up" data-aos-duration="500">
+            <a href="{{ url('/register') }}"><button type="button" name="button" class="btn hoverButton">Comienza ahora.</button></a>
+        </div>
+      </div>
+
+      <!-- block7 -->
+      <div class="row justify-content-center" id="block7">
+        <div class="col-md-12">
+          <h1>¿Qué beneficios obtendré?</h1>
+        </div>
+        <div class="col-md-4 text-center iconContainer" data-aos="fade-up" data-aos-duration="500">
+          <img src="{{ asset('img/info/icono_01.png') }}" alt="" class="icon-image">
+          <div class="title">
+            Serás consistente en tus actividades físicas.
+          </div>
+        </div>
+        <div class="col-md-4 text-center iconContainer" data-aos="fade-up" data-aos-duration="500">
+          <img src="{{ asset('img/info/icono_02.png') }}" alt="" class="icon-image">
+          <div class="title">
+            Cambiarás hábitos dañinos para tu salud.
+          </div>
+        </div>
+        <div class="col-md-4 text-center iconContainer" data-aos="fade-up" data-aos-duration="500">
+          <img src="{{ asset('img/info/icono_03.png') }}" alt="" class="icon-image">
+          <div class="title">
+            Vivirás con propósito y sentido.
+          </div>
+        </div>
+        <div class="col-md-4 text-center iconContainer" data-aos="fade-up" data-aos-duration="500">
+          <img src="{{ asset('img/info/icono_04.png') }}" alt="" class="icon-image">
+          <div class="title">
+            Aumentarás tu energía.
+          </div>
+        </div>
+        <div class="col-md-4 text-center iconContainer" data-aos="fade-up" data-aos-duration="500">
+          <img src="{{ asset('img/info/icono_05.png') }}" alt="" class="icon-image">
+          <div class="title">
+            Generarás emociones positivas para tener bienestar.
+          </div>
+        </div>
+        <div class="col-md-4 text-center iconContainer" data-aos="fade-up" data-aos-duration="500">
+          <img src="{{ asset('img/info/icono_06.png') }}" alt="" class="icon-image">
+          <div class="title">
+            Lograrás tus propósitos alimenticios.
+          </div>
+        </div>
+        <div class="col-md-4 text-center iconContainer" data-aos="fade-up" data-aos-duration="500">
+          <img src="{{ asset('img/info/icono_07.png') }}" alt="" class="icon-image">
+          <div class="title">
+            Reducirás tus niveles de estrés.
+          </div>
+        </div>
+        <div class="col-md-12 text-center" id="bigText" data-aos="fade-up" data-aos-duration="500">
+          ¡Da un SALTUM en tu salud!
+        </div>
+      </div>
+
+      <!-- block 8 -->
+      <div class="parallax-window3 row justify-content-end" data-parallax="scroll" data-image-src="{{ url('img/info/foto03.png') }}" id="block8">
+        <div class="col-md-7">
+          <div>"La vida saludable es un proceso, no un estado del
+          ser. &nbsp; Se trata de una dirección, no un destino"</div>
+
+          <div id="author" data-aos="fade-left" data-aos-duration="500">-Carl Rogers</div>
+
+          <div class="btnContainer" data-aos="fade-left" data-aos-duration="500">
+              <a href="{{ url('/register') }}"> <button type="button" name="button" class="btn hoverButton">Quiero cambiar</button> </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  @endsection
+
+
+  @section('jqueryScripts')
+    <!-- parallax scroll -->
+    <script src="https://cdn.jsdelivr.net/parallax.js/1.4.2/parallax.min.js"></script>
+
+    <script type="text/javascript">
+      var SubscriptionUrl =" {{ url('/suscribeNews') }}";
+    </script>
+
+    <script src="{{ asset('js/mainFunctions.js') }}"></script>
+
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+        //-----------------------------------------
+        //          GLOBAL VARS
+        //-----------------------------------------
+
+        //-----------------------------------------
+        //          INITIAL CONDITIONS
+        //-----------------------------------------
+        //busca en que pixel Y se encuentra la pantalla
+        testWindowScroll();
+        $('.parallax-window1').parallax();
+        $('.parallax-window2').parallax();
+        $('.parallax-window3').parallax();
+
+        //inicia animaciones de entrada
+        AOS.init();
+
+        $('.carousel').slick({
+          adaptiveHeight: true,
+          arrows: true,
+          lazyLoad: 'ondemand',
+          fade: true,
+          dots: true,
+          swipe: true
+        });
+        //-----------------------------------------
+        //          GENERAL FUNCTIONS
+        //-----------------------------------------
+        //cambia el estilo del menú
+        function toggleMenuStyle( type )
+        {
+          if( type == 'white-bg' )
+          {
+              $("#brandLogo").attr("src", "{{ asset('img/info/saltumlogocolor.png') }}");
+              $(".navbar").css({
+                  "background": "#fff",
+                  "-webkit-box-shadow": "0 0 9px 0 rgba(0,0,0,.5)",
+                  "-moz-box-shadow": "0 0 9px 0 rgba(0,0,0,.5)",
+                  "-ms-box-shadow": "0 0 9px 0 rgba(0,0,0,.5)",
+                  "box-shadow": "0 0 9px 0 rgba(0,0,0,.5)",
+                  "-webkit-transition": "background 200ms ease-in",
+                  "-ms-transition": "background 200ms ease-in",
+                  "transition": "background 200ms ease-in",
+              });
+              $(".loginNav").css({
+                "background-color": "rgb(0,0,0,0.2)"
+              });
+              $(".navbar-light .navbar-nav .nav-link, .navbar-dark .navbar-nav .nav-link").css({
+                  "color": "rgba(51, 51, 51, .9) !important",
+                  "text-shadow": "none"
+                });
+              $(".custom-toggler-white").addClass("custom-toggler-black");
+              $(".navbar").addClass("navbar-light");
+              $(".navbar").removeClass("navbar-dark");
+          }
+          else if( type == 'no-bg' )
+          {
+              $("#brandLogo").attr("src", "{{ asset('img/info/logo_saltum.png') }}");
+              if( ($( window ).width()) >= 992 ){
+                $(".navbar-light .navbar-nav .nav-link").css({
+                    "color": "rgba(255, 255, 255, .9)",
+                    "text-shadow": "1px 3px 5px rgba(38, 38, 38, 1)"
+                  });
+              }
+              $(".navbar").css({
+                "background": "none",
+                "-webkit-box-shadow": "none",
+                "-moz-box-shadow": "none",
+                "-ms-box-shadow": "none",
+                "box-shadow": "none"
+              });
+              $(".loginNav").css({
+                "background-color": "rgb(255,255,255,0.2)"
+              });
+              $(".custom-toggler-white").removeClass("custom-toggler-black");
+              $(".navbar").removeClass("navbar-light");
+              $(".navbar").addClass("navbar-dark");
+          }
+        }
+
+        //cambia la indicador de la barra de navegacion selected
+        // $.fn.isInViewport = function() {
+        //     var elementTop = $(this).offset().top;
+        //     var elementBottom = elementTop + $(this).outerHeight() - 100;
+        //
+        //     var viewportTop = $(window).scrollTop();
+        //     var viewportBottom = viewportTop + $(window).height() + 100;
+        //
+        //     return elementBottom > viewportTop && elementTop < viewportBottom;
+        // };
+        // $(window).on('resize scroll', function() {
+        //   switch ( true ) {
+        //     case ( $('.Inicio').isInViewport() ):
+        //       changeMenuSelected('Inicio');
+        //     break;
+        //     case ( $('.QuienesSomos').isInViewport() ):
+        //       changeMenuSelected('QuienesSomos');
+        //     break;
+        //     case ( $('.ComoFunciona').isInViewport() ):
+        //       changeMenuSelected('ComoFunciona');
+        //     break;
+        //     case ( $('.Sesiones').isInViewport() ):
+        //       changeMenuSelected('Sesiones');
+        //     break;
+        //     case ( $('.Contacto').isInViewport() ):
+        //       changeMenuSelected('Contacto');
+        //     break;
+        //     case ( $('.Blog').isInViewport() ):
+        //       changeMenuSelected('Blog');
+        //     break;
+        //   }
+        // });
+        // function changeMenuSelected( tag ){
+        //   $("#Inicio, #QuienesSomos, #ComoFunciona, #Sesiones, #Blog, #Contacto").removeClass('navSelected');
+        //   $("#"+tag).addClass('navSelected');
+        // }
+
+        function testWindowScroll(){
+          if(window.scrollY > 50) {
+              toggleMenuStyle("white-bg");
+          } else {
+              toggleMenuStyle("no-bg");
+          }
+        }
+
+        //-----------------------------------------
+        //          DOM FUNCTIONS
+        //-----------------------------------------
+        // //funciones del menú
+        // $(".navBtn").on('click', function(){
+        //   $('html,body').animate({
+        //     scrollTop: ($("#"+ $(this).attr("id") +"Div").offset().top) - 10
+        //   }, 'slow', 'easeOutSine');
+        //   if( $('#navbarResponsive').hasClass('show') ){  //si esta mostrandose menu de hamburguesa, ocultar
+        //     $('#navbarResponsive').removeClass('show');
+        //   }
+        // });
+
+        //abre y cierra el menú de hamburguesa
+        $(".navbar-toggler").on('click', function(){
+          if( $('#navbarResponsive').hasClass('show') ){
+            $('#navbarResponsive').removeClass('show');
+            //cambia el estilo del menu
+            toggleMenuStyle( "no-bg" );
+          } else {
+            $('#navbarResponsive').addClass('show');
+            //cambia el estilo del menu
+            toggleMenuStyle( "white-bg" );
+            $(".navbar-light .navbar-nav .nav-link").css({
+                "color": "rgba(0, 0, 0, .9)",
+                "text-shadow": "none"
+              });
+          }
+        });
+
+        // //cambia el menu cuando se scrollea
+        window.onscroll = function (e) {
+          testWindowScroll();
+        };
+
+        //on hover transparenta texto
+        $( ".nav-link" ).hover(
+          function() {
+            $(this).fadeTo( "fast" , 0.7);
+          }, function() {
+            $(this).fadeTo( "fast" , 1);
+          }
+        );
+
+        //valida el formulario de contacto y si ok llama sendContacto
+        $("#sendContacto").click(function(){
+          console.log(valFlag);
+          if(valFlag[0]==1){
+            if(valFlag[1]==1){
+              if(valFlag[2]==1){
+                ajaxSendContacto();
+              } else { $("#con-alert").html('- Aún faltan datos en el formuario.')  }
+            } else { $("#con-alert").html('- Aún faltan datos en el formuario.')  }
+          } else { $("#con-alert").html('- Aún faltan datos en el formuarios.') }
+        });
+
+        //valida el nombre
+        $("#con-nombre").on("blur", function() {
+            $("#con-alert").html('');
+            var pattern = /^[a-zA-Zá-úÁ-Ú, ]{3,100}$/i;
+            if( $(this).val() != '' ){
+              if( pattern.test($(this).val()) ){
+                valFlag[0]=1;
+                $("#con-alert").html('');
+                $(this).css({"border": "none"})
+              } else {
+                valFlag[0]=0;
+                $("#con-alert").html('- El nombre contiene caracteres inválidos');
+                 $(this).css({"border": "solid 2px #ff4a4a"})
+              }
+            } else {
+              valFlag[0]=0;
+              $(this).css({"border": "solid 2px #ff4a4a"});
+              $("#con-alert").html('- Falta capturar el nombre');
+            }
+        });
+
+        //valida el correo
+        $("#con-correo").on("blur", function() {
+          var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+          ((pattern.test($(this).val())) ? valFlag[1]=1 : valFlag[1]=0 );
+
+          if( $(this).val() != '' ){
+            if( pattern.test($(this).val()) ){
+              valFlag[1]=1;
+              $("#con-alert").html('');
+              $(this).css({"border": "none"})
+            } else {
+              valFlag[1]=0;
+              $("#con-alert").html('- El correo tiene un formato inválidos');
+               $(this).css({"border": "solid 2px #ff4a4a"})
+            }
+          } else {
+            valFlag[1]=0;
+            $(this).css({"border": "solid 2px #ff4a4a"});
+            $("#con-alert").html('- Falta capturar el correo');
+          }
+
+        });
+
+        //valida el mensaje
+        $("#con-mensaje").on("blur", function() {
+            if( $(this).val() != '' ){
+                valFlag[2]=1;
+                $("#con-alert").html('');
+                $(this).css({"border": "none"})
+            } else {
+              valFlag[2]=0;
+              $(this).css({"border": "solid 2px #ff4a4a"});
+              $("#con-alert").html('- Falta capturar el mensaje');
+            }
+        });
+
+        $(".navbar-brand").click(function(){
+          $("html, body").animate({ scrollTop: 0 }, "slow");
+          return false;
+        });
+        //-----------------------------------------
+        //            AJAX FUNCTIONS
+        //-----------------------------------------
+        function ajaxSendContacto(){
+          $.ajax({
+          data: { /*"_token": "{{ csrf_token() }}",*/ nombre: $("#con-nombre").val(),
+                  correo: $("#con-correo").val(), mensaje: $("#con-mensaje").val() },
+          type: "POST",
+          url: "{{ url('/submitComments') }}",
+          beforeSend: function() {
+            $("#con-process").addClass('animateElm');
+            $("#con-process").html("Enviando comentarios...");
+          }
+          })
+          .done(function(data){
+            console.log('ajaxSendContacto(ok)');
+            console.log(data);
+            $("#con-process").removeClass('animateElm');
+            $("#con-process").html("Comentarios enviados");
+            $("#con-alert").html("");
+            $('#formContacto')[0].reset();
+          })
+          .fail(function(data){
+            console.log(data)
+            $("#con-process").removeClass('animateElm');
+            $("#con-process").html("");
+            $("#con-alert").html("Error, favor de reintentarlo");
+            console.log('ajaxSendContacto("falló")');
+          });
+        }
+      });
+    </script>
+  @endsection

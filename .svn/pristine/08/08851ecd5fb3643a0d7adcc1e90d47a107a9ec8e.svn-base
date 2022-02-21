@@ -1,0 +1,18 @@
+<div class="container-fluid chatWindow">
+  <div class="row justify-content-end">
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-md-12" style="background:blue">
+          aquí van los controles
+        </div>
+        <div class="col-md-12" style="background:red">
+          aqui va el chat ^^
+        </div>
+        <div class="col-md-12" style="background:white">
+          aqui van los coaches/usuarios relacionados ^^
+          (Provisional)
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

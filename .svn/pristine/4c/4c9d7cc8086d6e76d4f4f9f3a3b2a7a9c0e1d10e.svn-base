@@ -1,0 +1,29 @@
+<!-- partial Blog.Categories - a full list of Categories-->
+      @FOREACH($temas as $tema)
+        @IF( Session('role') == 1 || Session('role') == 3 || $tema['activo'] == 1 )
+          <div class="col-md-{{ Request::is('/') ? '6' : '4' }} blogBlock" data-aos="fade-right" data-aos-duration="300" {{ (( $tema->activo == 0 )? 'style=opacity:0.5' : '' ) }} id="block{{$tema->id}}">
+            <div class="row">
+              <div class="col-md-12 blogSquare">
+                <a href="{{ url('blog/post/show/'.$tema['id']) }}">
+                  <img src="{{ asset('img/imgTemas/'.$tema['foto']) }}" alt="" class="blogImg">
+                  <div class="blogTitle">{{ $tema['descripcion'] }}</div>
+                </a>
+
+                @IF( Request::is('/') )
+                    <a href="{{ url('blog/post/show/'.$tema['id']) }}"> <img src="{{ asset('img/info/boton01.png') }}" alt="" class="linkBtn"> </a>
+                @ELSE
+                    @IF( Session('role') == 1 || Session('role') == 3  )
+                        <button type="button" name="button" class="btn btn-block btn-info btn-lg editCategorieBtn" id="{{ $tema['id'] }}"> Editar Categoría &nbsp; <i class="fas fa-pencil-alt"></i> </button>
+                        @IF( $tema['activo'] == 1 )
+                          <button type="button" name="button" class="btn btn-block btn-warning btn-lg toggleBtn" metaId="{{ $tema['id'] }}" metaStat="{{ $tema['activo'] }}"> Deshabilitar Categoría &nbsp; <i class="fas fa-eye-slash"></i> </button>
+                        @ELSEIF( $tema['activo'] == 0 )
+                          <button type="button" name="button" class="btn btn-block btn-warning btn-lg toggleBtn" metaId="{{ $tema['id'] }}" metaStat="{{ $tema['activo'] }}"> Habilitar Categoría &nbsp; <i class="far fa-eye"></i> </button>
+                        @ENDIF
+                    @ENDIF
+                @ENDIF
+
+              </div>
+            </div>
+          </div>
+        @ENDIF
+      @ENDFOREACH

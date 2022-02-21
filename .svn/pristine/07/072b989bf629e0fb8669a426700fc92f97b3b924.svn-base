@@ -1,0 +1,419 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Pagination\LengthAwarePaginator;
+use App\BlogTemas;
+use App\BlogPost;
+use App\BlogLike;
+use App\BlogTemasXPost;
+use App\User;
+use App\Resources;
+use App\Company;
+use DateTime;
+use Session;
+
+class AdminController extends Controller
+{
+    //-- Blog - Categories
+    // show full List of categories
+    public function blogCategoriesIndex()
+    {
+        $search = BlogTemas::get();
+        return view('blog.blogCategories')->with([ 'temas' => $search ]);
+    }
+
+    // Upload an image on server for a Categorie
+    public function blogCategoriesPostImg()
+    {
+       //get today date to rename files
+       $date = new dateTime();
+       $date = date_format( $date, 'Ymd');
+
+       $fileName = $date . (rand(1000, 9999)) .$_FILES['myfile']['name'];
+
+        if (move_uploaded_file($_FILES['myfile']['tmp_name'], 'img/imgTemas/'.$fileName)) {
+            echo $fileName;
+        } else {
+            echo "error";
+        }
+    }
+
+    // Save a new categorie on DB
+    public function blogCategoriesCreate()
+    {
+      $query = BlogTemas::where('descripcion', $_POST['descripcion'])->get();
+      if( count($query) == 0 )      //if categorie doesn't exists
+      {
+          //save POST on DB
+          $query = BlogTemas::create([
+              'descripcion' => $_POST['descripcion'],     'foto' =>  $_POST['foto'],
+              'activo' => 1
+          ]);
+          //return to categories view
+          return redirect()->back()->withSuccess('¡Categoría creada exitosamente!');
+      }
+      else            //if categorie alrready exists, return error msg
+      {
+          return Redirect::back()->withErrors(['¡Ésta categoría ya existe!']);
+      }
+    }
+
+    // Update an existing categorie on DB
+    public function blogCategoriesUpdate()
+    {
+        $query = BlogTemas::where('descripcion', $_POST['descripcion'])->where('id', '!=', $_POST['id'])->get();
+        if( count($query) == 0 )      //if categorie doesn't exists
+        {
+            //update POST on DB
+            $query = BlogTemas::where('id', '=', $_POST['id'])->update([
+                'descripcion' => $_POST['descripcion'],  'foto' =>  $_POST['foto'],
+                'activo' => 1
+            ]);
+            //return to categories view
+            return redirect()->back()->withSuccess('¡Categoría modificada exitosamente!');
+        }
+        else            //if categorie alrready exists, return error msg
+        {
+            return Redirect::back()->withErrors(['¡Imposible modificar, ésta categoría ya existe!']);
+        }
+    }
+
+    // toggle categorie status ('activo')
+    public function blogCategoriesToggle()
+    {
+      $stat = $_POST['stat'];
+      $id = $_POST['id'];
+
+      if ($stat == 1 ) {
+        $stat = 0;
+        $msg = 'deshabilitada';
+      } else if($stat == 0) {
+        $stat = 1;
+        $msg = 'habilitada';
+      }
+
+      $query = BlogTemas::where('id', '=', $id)->update([
+          'activo' => $stat
+      ]);
+
+      echo $stat;
+    }
+
+
+
+    //--  Blog - Posts
+    // show list of Posts
+    public function blogPostIndex( Request $request, $id )
+    {
+        $theme = BlogTemas::where('id', $id)->first();
+
+        //get posts ids that has $id categorie
+        $postNumbers = BlogTemasXPost::join('BlogTemas', 'BlogTemasXPost.id_Tema', '=', 'BlogTemas.id')
+                  ->select('BlogTemasXPost.*', 'BlogTemas.descripcion')
+                  ->where('BlogTemasXPost.id_Tema', $id)->orderBy('BlogTemasXPost.id_Post')->get();
+
+        //get the info of that posts
+        $postList = [];
+        for ($x=0; $x<count($postNumbers); $x++) {
+          $query = BlogPost::where('id', $postNumbers[$x]['id_Post'])
+            ->select('id', 'visible', 'titulo', 'foto', 'created_at', 'publiDate')->first();
+
+            //if the user is not an admin or blogger, just add visible and publicDate > today, post on array
+            if( Session('role') != 1 && Session('role') != 3 ){
+              if( $query->visible == 1 &&date("Y-m-d") >= date('Y-m-d', strtotime($query->publiDate)) ){
+                $postList[] = $query;
+              }
+            } else {
+              $postList[] = $query;
+            }
+        }
+
+        //custom paginate function
+        // Get current page form url e.x. &page=1
+       $currentPage = LengthAwarePaginator::resolveCurrentPage();
+       // Create a new Laravel collection from the array data
+       $itemCollection = collect($postList);
+       // Define how many items we want to be visible in each page
+       $perPage = 3;
+       // Slice the collection to get the items to display in current page
+       $currentPageItems = $itemCollection->slice(($currentPage * $perPage) - $perPage, $perPage)->all();
+       // Create our paginator and pass it to the view
+       $paginatedItems= new LengthAwarePaginator($currentPageItems , count($itemCollection), $perPage);
+       // set url path for generted links
+       $paginatedItems->setPath($request->url());
+
+       //return view('items_view', ['items' => $paginatedItems]);
+        return view('blog.blogPostIndex')->with([ 'theme' => $theme,  'items' => $paginatedItems ]);
+    }
+
+    // show a single post
+    public function blogPostSingle( $id )
+    {
+      //get post register whit $id
+      $post = BlogPost::where('id', $id)->first();
+
+      //get posts ids that has $id post
+      $themes = BlogTemasXPost::join('BlogTemas', 'BlogTemasXPost.id_Tema', '=', 'BlogTemas.id')
+                ->select('BlogTemasXPost.*', 'BlogTemas.descripcion')
+                ->where('BlogTemasXPost.id_Post', $id)->get();
+
+      //search the count of likes, and if has been liked by the user
+      $noLikes = BlogLike::where('id_Post', $id)->count();
+      if( Session('user') != null ){      //if session exists
+          $liked = BlogLike::where('id_Post', $id)->where('id_Usuario', Session('user')->id)->first();
+          if( $liked == null ){
+            $liked = false;
+          } else {
+            $liked = true;
+          }
+      } else {
+        $liked = false;
+      }
+
+       return view('blog.blogPostShow')
+        ->with([
+          'themes' => $themes,  'post' => $post,
+          'noLikes' => $noLikes, 'liked' => $liked
+        ]);
+    }
+
+    // form to create new post
+    public function blogPostCreate()
+    {
+      //get list of categories
+      $themes = BlogTemas::where('activo', 1)->get();
+      return view('blog.blogPostCreate')
+          ->with([ 'themes' => $themes ]);
+    }
+
+    // save a new post on DB
+    public function blogPostStore()
+    {
+        if( $_POST['type'] == 'create' ){
+          //save post and return id of the post
+          $thisId = BlogPost::insertGetId([
+            'foto' => $_POST['foto'], 'titulo' => $_POST['titulo'], 'mensaje' => $_POST['mensaje'],
+            'id_usuario' => Session('user')->name, 'visible' => ((isset($_POST['visible']))? 1 : 0), 'likes' => 0,
+            'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s'), 'publiDate' => strtotime($_POST['publiDate'])
+          ]);
+
+          //save post categories
+          for ($x=0; $x<count($_POST['tema']); $x++) {
+              $query = BlogTemasXPost::create([
+                'id_Tema' => $_POST['tema'][$x],
+                'id_Post' => $thisId
+              ]);
+          }
+          return redirect('/blog/post/show/'.$_POST['tema'][0]);
+
+        } else if( $_POST['type'] == 'update' ){
+          //delete data from post in BlogTemasXPost
+          $query = BlogTemasXPost::where('id_Post', $_POST['id'])->delete();
+          //update post data
+          $query = BlogPost::where('id', $_POST['id'])->update([
+              'foto' => $_POST['foto'], 'titulo' => $_POST['titulo'], 'mensaje' => $_POST['mensaje'],
+              'id_usuario' => Session('user')->name, 'visible' => ((isset($_POST['visible']))? 1 : 0), 'likes' => 0,
+              'updated_at' => date('Y-m-d H:i:s'), 'publiDate' => $_POST['publiDate']
+          ]);
+          //save post categories
+          for ($x=0; $x<count($_POST['tema']); $x++) {
+              $query = BlogTemasXPost::create([
+                'id_Tema' => $_POST['tema'][$x],
+                'id_Post' => $_POST['id']
+              ]);
+          }
+          return redirect('/blog/post/show/'.$_POST['tema'][0]);
+        }
+    }
+
+    // toggle post status ('activo')
+    public function blogPostToggle()
+    {
+      $stat = $_POST['stat'];
+      $id = $_POST['id'];
+
+      if ($stat == 1 ) {
+        $stat = 0;
+      } else if($stat == 0) {
+        $stat = 1;
+      }
+
+      $query = BlogPost::where('id', '=', $id)->update([
+          'visible' => $stat
+      ]);
+
+      echo $stat;
+    }
+
+    // show form to update post
+    public function blogPostUpdate( $id )
+    {
+      //get post whith $id
+      $post = BlogPost::where('id', $id)->first();
+
+      //get list of categories
+      $themes = BlogTemas::where('activo', 1)->get();
+
+      //get categorie list of the post
+      $catList = BlogTemasXPost::where('id_post', $id)->select('id_Tema')->get();
+
+      // print_r(json_encode($catList));
+      return view('blog.blogPostCreate')
+          ->with([ 'themes' => $themes, 'post' => $post, 'catList' => $catList ]);
+    }
+
+    //toggle a user like
+    public function blogLikeToggle()
+    {
+      if( $_POST['actual_stat'] == 0 ){
+        //if isn't exists - create it
+        $like = BlogLike::create([
+          'id_Usuario' => Session('user')->id,
+          'id_Post' => $_POST['id_post']
+        ]);
+        $actualStat = 1;
+      } else {
+        //if exists - destroys it
+        $like = BlogLike::where('id_Usuario', Session('user')->id)
+          ->where('id_Post', $_POST['id_post'])->delete();
+        $actualStat = 0;
+      }
+      //get the number of likes
+      $noLikes = BlogLike::where('id_Post', $_POST['id_post'])->count();
+
+      //return a json whith values
+      $response['noLikes'] = $noLikes;
+      $response['actualStat'] = $actualStat;
+
+      print_r(json_encode($response));
+    }
+
+
+
+    //--  Resources
+    // show list of resources
+    public function resourcesIndex()
+    {
+      $resources = Resources::orderBy('created_at', 'desc')->paginate(10);
+      return view('resources.resourcesIndex')->with(['resources' => $resources]);
+    }
+
+    // upload file to server
+    public function resPostFile()
+    {
+      //get today date to rename files
+      $date = new dateTime();
+      $date = date_format( $date, 'Ymd');
+
+      $fileName = $date . (rand(1000, 9999)) .$_FILES['myfile']['name'];
+
+       if (move_uploaded_file($_FILES['myfile']['tmp_name'], 'files/'.$fileName)) {
+           echo $fileName;
+       } else {
+           echo "error";
+       }
+    }
+
+    // store the uploaded file info into db
+    public function resStore()
+    {
+        //insert resource info
+        $query = Resources::create([
+            'descripcion' => $_POST['descripcion'],     'url' =>  $_POST['url'],     'downloads' => 0,
+            'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        //return to resources view
+        return redirect()->back()->withSuccess('¡Recurso guardado exitosamente!');
+    }
+
+    // update resource data in db
+    public function resUpdate()
+    {
+      //update resource info
+      $query = Resources::where('id', $_POST['id'])->update([
+          'descripcion' => $_POST['descripcion'],     'url' =>  $_POST['url'],
+          'updated_at' => date('Y-m-d H:i:s')
+      ]);
+
+      //return to resources view
+      return redirect()->back()->withSuccess('¡Recurso modificado exitosamente!');
+    }
+
+    // delete resource from db
+    public function resDelete()
+    {
+      $query = Resources::where('id', $_POST['id'])->select('url')->first();
+      unlink( 'files/'.$query['url'] );
+      $query = Resources::where('id', $_POST['id'])->delete();
+      return $_POST['id'];
+    }
+
+    // add +1 on resources -> download register
+    public function resDownPlus()
+    {
+      $noDownloads = Resources::where('id', $_POST['id'])->select('downloads')->first();
+      $query = Resources::where('id', $_POST['id'])->update([ 'downloads' => ( $noDownloads['downloads'] + 1) ]);
+      echo ( $noDownloads['downloads'] + 1);
+    }
+
+
+    //--  perfil
+    // show perfil info, whit ajax editable blade
+    public function perfilIndex()
+    {
+      //get User info
+      $user = User::where('id', Session('user')['id'])->first();
+
+      //get company name
+      $company = Company::where('id', $user['company_id'])->first();
+      return view('perfil.indexPerfil')->with(['user' => $user, 'company' => $company]);
+    }
+
+    //  upload a file on server
+    public function perfilUploadFile()
+    {
+      //get old file name
+      if( $_POST['type'] == 'photo'){
+        $oldFile = User::where('id', $_POST['id'])->select('photo')->first();
+        $oldFile = $oldFile['photo'];
+      } else if( $_POST['type'] == 'cv') {
+        $oldFile = User::where('id', $_POST['id'])->select('cv')->first();
+        $oldFile = $oldFile['cv'];
+      }
+
+      //delete the old file name
+      (($oldFile != null)? unlink( 'files/usersFiles/'.$oldFile ) : '' );
+
+      //get today date to rename files
+      $date = new dateTime();
+      $date = date_format( $date, 'Ymd');
+      $fileName = $date . (rand(1000, 9999)) .$_FILES['myfile']['name'];
+
+      //move to server
+      move_uploaded_file($_FILES['myfile']['tmp_name'], 'files/usersFiles/'.$fileName);
+
+      //update database
+      if( $_POST['type'] == 'photo'){
+        $query = User::where('id', $_POST['id'])->update(['photo' => $fileName]);
+      } else if( $_POST['type'] == 'cv') {
+        $query = User::where('id', $_POST['id'])->update(['cv' => $fileName]);
+      }
+
+      //print the final file name
+      echo $fileName;
+    }
+
+    // update perfil info
+    public function perfilUpdate()
+    {
+      // update User DB
+      $query = User::where('id', $_POST['id'])->update([ $_POST['flag'] => $_POST['value'] ]);
+      echo $_POST['value'];
+    }
+}

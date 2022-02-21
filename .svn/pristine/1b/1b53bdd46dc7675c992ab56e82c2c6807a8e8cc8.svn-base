@@ -1,0 +1,99 @@
+.transparency{
+  height: 100vh;
+  width: 100vw;
+  background-color: rgb(0,0,0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  display: none;
+}
+
+.form-container{
+  z-index: 4;
+  background-color: #fff;
+  border-top-left-radius: 10px ;
+  border-top-right-radius: 10px ;
+  position: fixed;
+  top: 18%;
+  display: none;
+  /* max-height: 75vh; */
+  /* overflow-y: scroll; */
+}
+.form-header{
+  background-color: #3366ff;
+  color: #fff;
+  border-top-left-radius: 10px ;
+  border-top-right-radius: 10px ;
+  padding: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: left;
+  font-family: "Raleway Bold";
+  font-size: 1.5rem;
+}
+.closeFormBtn{
+  background: none;
+  border: none;
+  /* box-shadow: none; */
+  color: #fff;
+  position: absolute;
+  right: 10px;
+}
+.closeFormBtn:hover{
+  opacity: 0.5;
+}
+.form-body{
+  padding-top: 15px;
+  padding-bottom: 15px;
+  max-height: 60vh;
+  overflow-y: scroll;
+}
+.form-body label{
+  color: #333;
+  font-size: 1.5rem;
+}
+.formAlert{
+  background-color: #fff5cc;
+  padding: 5px;
+  color: #665200
+}
+#form_info_container{
+  font-size: 1.3rem;
+}
+#form_info_container .span_label{
+  font-size: 1.5rem;
+    color: #333;
+    margin-right: 10px;
+}
+.form-footer{
+  padding-top: 15px;
+  padding-bottom: 15px;
+  text-align: right;
+}
+.form-footer .btn{
+  margin-left: 10px;
+}
+
+
+#calendar {
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+
+.circleBtn{
+  width: 49px;
+  height: 49px;
+  text-align: center;
+  padding: 5px 0;
+  font-size: 20px;
+  line-height: 2.00;
+  border-radius: 30px;
+  -webkit-box-shadow: 1px 5px 8px 0px rgba(74,74,74,1);
+  -moz-box-shadow: 1px 5px 8px 0px rgba(74,74,74,1);
+  box-shadow: 1px 5px 8px 0px rgba(74,74,74,1);
+  color: #0066ff;
+  margin-bottom: 1%;
+  margin-left: 1%
+}

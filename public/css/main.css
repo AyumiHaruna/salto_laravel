@@ -1,0 +1,587 @@
+/*-----------------------------------------------
+                      IMPORTS
+------------------------------------------------*/
+/*--------------------------------------------*/
+/*        Avenir      */
+@font-face {
+    font-family: 'Avenir Book';
+    src: url('../fonts/Avenir-Book.eot');
+    src: url('../fonts/Avenir-Book.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Avenir-Book.woff2') format('woff2'),
+        url('../fonts/Avenir-Book.woff') format('woff'),
+        url('../fonts/Avenir-Book.svg#Avenir-Book') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Avenir Medium';
+    src: url('../fonts/Avenir-Medium.eot');
+    src: url('../fonts/Avenir-Medium.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Avenir-Medium.woff2') format('woff2'),
+        url('../fonts/Avenir-Medium.woff') format('woff'),
+        url('../fonts/Avenir-Medium.svg#Avenir-Medium') format('svg');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Avenir Heavy';
+    src: url('../fonts/Avenir-Heavy.eot');
+    src: url('../fonts/Avenir-Heavy.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Avenir-Heavy.woff2') format('woff2'),
+        url('../fonts/Avenir-Heavy.woff') format('woff'),
+        url('../fonts/Avenir-Heavy.svg#Avenir-Heavy') format('svg');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Avenir Black';
+    src: url('../fonts/Avenir-Black.eot');
+    src: url('../fonts/Avenir-Black.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Avenir-Black.woff2') format('woff2'),
+        url('../fonts/Avenir-Black.woff') format('woff'),
+        url('../fonts/Avenir-Black.svg#Avenir-Black') format('svg');
+    font-weight: 900;
+    font-style: normal;
+}
+@viewport{
+    zoom: 1.0;
+    width: extend-to-zoom;
+}
+@-ms-viewport{
+    width: extend-to-zoom;
+    zoom: 1.0;
+}
+
+/*--------------------------------------------*/
+/*        Raleway      */
+@font-face {
+    font-family: 'Raleway';
+    src: url('../fonts/raleway/Raleway-Regular.ttf');
+}
+@font-face {
+    font-family: 'Raleway Black';
+    src: url('../fonts/raleway/Raleway-Black.ttf');
+}
+@font-face {
+    font-family: 'Raleway Bold';
+    src: url('../fonts/raleway/Raleway-Bold.ttf');
+}
+@font-face {
+    font-family: 'Raleway Light';
+    src: url('../fonts/raleway/Raleway-Light.ttf');
+}
+/*-----------------------------------------------
+                  DOM ELEMENTS
+------------------------------------------------*/
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-family: 'Raleway';
+  font-size: 1vw;
+  color: #333;
+}
+/* Large desktop */
+@media (min-width: 1200px) {
+  body{
+    font-size: 1.1vw;
+  }
+}
+/* Landscape phone to portrait tablet */
+@media (max-width: 980px) {
+  body{
+    font-size: 1.3vw;
+  }
+}
+
+/* Landscape phones and down */
+@media (max-width: 481px) {
+  body{
+    font-size: 2.5vw;
+  }
+}
+
+#main_container{
+  margin: 0% !important;
+  font-family: 'Avenir Medium';
+}
+
+
+
+/*-----------------------------------------------
+                ID, CLASS ELEMENTS
+------------------------------------------------*/
+/*NAVBAR - MENU ------------------------------------------------------*/
+.navbar{
+  padding-top: 1%;
+  z-index: 999;
+  font-size: 1.5rem;
+  font-weight: 100;
+  font-family: "Avenir Medium";
+  background: rgba(255,255,255,0.9);
+  background-image: url('../img/web/general/linea_logo.png');
+  background-size: 113% 34%;
+  background-position-y: 117%;
+  background-position-x: 69%;
+  background-repeat: no-repeat;
+  opacity: 0.9;
+  -webkit-box-shadow: 0 0 9px 0 rgba(0,0,0,.5);
+  -moz-box-shadow: 0 0 9px 0 rgba(0,0,0,.5);
+  -ms-box-shadow: 0 0 9px 0 rgba(0,0,0,.5);
+  box-shadow: 0 0 9px 0 rgba(0,0,0,.5);
+  -webkit-transition: background 200ms ease-in;
+  -ms-transition: background 200ms ease-in;
+  transition: background 200ms ease-in;
+  list-style-type: none;
+}
+#brandLogo{
+  height: 55px;
+  width: auto;
+}
+#avatarPic{
+  border-radius: 50%;
+}
+.dropdown-toggle{
+  color: #33669A;
+  font-family: "Avenir Medium";
+}
+.dropdown-menu a{
+  color: #3D3D3D;
+  font-family: "Avenir Medium";
+}
+.navbar-light .navbar-nav .nav-link,
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(51, 51, 51, 1);
+  text-shadow: none;
+}
+.navbar li{
+  text-align: center;
+  margin-left: 4vw;
+}
+.navbar .show .dropdown-menu a{
+  border:solid 1px #fff;
+  width: 14vw;
+}
+.navbar .show{
+  background-color: #fff;
+}
+.nav-link {
+  padding: 0.5rem 0.5rem;
+  font-size: 1.5rem;
+}
+.navbar .show a:hover{
+  background-color: #cfe7fc;
+}
+#loginIcon{
+  margin-top:-5px;
+  width: auto;
+  height: 18px;
+  margin-right: 5px;
+}
+.loginNav{
+  background-color: rgba(255,255,255,0.2);
+  border-radius: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.navActive {
+  color: #25a9e0 !important;
+}
+.logoNav{
+    width: 13%;
+    position: absolute;
+    left: -1rem;
+    top: -1rem;
+    z-index: 10;
+}
+.logoNav img{
+    width: 100%;
+}
+@media (max-width: 1000px) {
+  .navbar li{
+    margin-left: 3vw;
+  }
+}
+@media (max-width: 959px) {
+  .logoNav{
+    width: 21%;
+  }
+  .navbar {
+    font-size: 2.5vw;
+    padding: 2%;
+  }
+
+  }
+  .navbar-toggler{
+    font-size: 3vw;
+    margin-right: 2vw;
+  }
+}
+.no-padding-right{
+  padding-right: 0px;
+}
+@media (max-width: 481px) {
+  .navbar {
+    font-size: 4vw;
+    padding: 3%;
+  }
+  #brandLogo{
+    height: 40px;
+  }
+  .navbar li{
+    padding: 5px;
+  }
+  .navbar-toggler{
+    font-size: 5vw;
+  }
+}
+#navbarResponsive{
+    display: contents !important;
+}
+.dropdown-toggle.profile_header::after {
+    display:none;
+}
+#profile_header_div{
+  width: 5%;
+  margin-right: 0px;
+}
+#profile_header_div a, #profile_header_div img{
+  width: 100%;
+}
+#nav-bar_container{
+    margin-left: 5% !important;
+    padding-right: 0px;
+    position: relative;
+}
+
+.dropdown-menu-right {
+    right: 0;
+    left: auto;
+    min-width: 150px;
+}
+
+.alertDiv{
+  position: fixed;
+  top: 20%;
+  background-color: #fff;
+  z-index: 999;
+  padding: 1%;
+  font-family: "Raleway";
+  -webkit-box-shadow: 0 0 9px 0 a(0,0,0,.5);
+  -moz-box-shadow: 0 0 9px 0 rgba(0,0,0,.5);
+  -ms-box-shadow: 0 0 9px 0 rgba(0,0,0,.5);
+  border-radius: 15px;
+  padding-left: 5%;
+  display:none;
+  font-size: 1.4rem;
+}
+@media (max-width: 980px) {
+  .alertDiv{
+    border-radius: 5px;
+  }
+
+}
+@media (max-width: 767.5px) {
+  #nav-bar_container li a{
+    font-size: 4.2rem;
+    width: auto;
+  }
+  .dropdown-menu-right {
+    right: auto;
+    left: 0;
+    min-width: 10rem;
+  }
+  #profile_header_div {
+    width: 100% !important;
+    margin: auto !important;
+  }
+  #profile_header_div a img{
+    width: 10% !important;
+  }
+  #nav-bar_container{
+    position: absolute;
+    background-color: white;
+    width: 100%;
+    margin-left: -2% !important;
+    overflow: auto;
+    height: 500px;
+  }
+  
+}
+@media (max-width: 480px) {
+  .alertDiv{
+    font-size: 4rem;
+ }
+}
+.dropdown-toggle{
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+}
+.dropdown-toggle::after {
+   margin-left: 0px !important;
+   font-family: "Font Awesome 5 Free";
+   font-weight: 900;
+   content: "\f078";
+   display: contents;
+}
+
+#avisoPrivBG{
+  height: 100vh;
+  background-color: (0,0,0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  display: none;
+}
+#avisoPrivInner{
+  background-color: #fff;
+  position: fixed;
+  top: 8%;
+  left: 0;
+  height: 87vh;
+  overflow-y: scroll;
+  padding-top: 2%;
+}
+#avisoPrivInner i{
+  color: red;
+  cursor: pointer
+}
+#avisoPrivInner i:hover{
+  opacity: 0.7;
+}
+#avisoPrivInner h2{
+  font-family: "Raleway Bold";
+  color: #25a9e0;
+  margin-bottom: 5%;
+  text-align: center;
+}
+#avisoPrivInner .textContainer{
+  padding: 10%;
+  padding-top: 0%;
+  padding-bottom: 5%;
+  text-align: justify;
+  color: #144586;
+}
+@media (max-width: 721px) {
+  .footer .avisoPriv{
+    font-size: 2rem !important;
+ }
+ #avisoPrivInner{
+   font-size: 2rem;
+ }
+ #avisoPrivInner h2{
+   font-size: 3rem;
+ }
+
+}
+@media (max-width: 480px) {
+  .footer .avisoPriv{
+    font-size: 3rem !important;
+ }
+ #avisoPrivInner{
+   font-size: 3rem;
+ }
+ #avisoPrivInner h2{
+   font-size: 5rem;
+ }
+}
+
+
+.textRed{
+  color: #ff4d4d;
+}
+.textBlue{
+  color: #144568;
+}
+
+
+.hoverButton {
+	position: relative;
+	transition: all 100ms ease;
+}.hoverButton:before{
+	content:'';
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 0px;
+	height: 100%;
+	background: rgba(255,255,255,0.15);
+	transition: all 0.5s ease;
+}.hoverButton:hover:before {
+	width: 100%;
+}
+
+
+
+.footer{
+  background-color: #41444b;
+  color: #fff;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  font-size: 1.35rem;
+}
+.footer #redes{
+  font-size: 1.5rem;
+}
+.footer #title{
+  font-family: "Raleway Bold";
+  font-size: 2.5rem;
+  margin-bottom: 4%;
+}
+.footer #form-left{
+  padding-left: 5%;
+  padding-right: 10%;
+}
+.footer #form-right{
+  padding-left: 10%;
+  padding-right: 5%;
+}
+.footer .forElmLeft{
+  margin-top: 10%;
+}
+.footer .forElmRight{
+  margin-top: 5%;
+}
+.footer #redes{
+  padding-top: 3%;
+  padding-bottom: 3%;
+}
+.footer input[type=text]{
+  background-color: #5f636d;
+  border: none;
+  border-radius: 0px;
+  font-size: 1.7rem;
+  color: #BDBDBD;
+}
+.footer .btn{
+  background: #8dc044;
+  color: #FFF;
+  font-family: "Raleway";
+  border-radius: 0px;
+  font-size: 1.4rem;
+  letter-spacing: 1px;
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+.footer #redes div{
+  margin-top: 2%;
+}
+.footer #redes a{
+  margin-right: 1%
+}
+.footer .avisoPriv{
+  color: #00ABE3;
+  font-size: 1.2rem;
+}
+
+/* Landscape phones and down */
+@media (max-width: 721px) {
+  .footer{
+    font-size: 1.8rem;
+  }
+  .footer #title{
+    font-size: 3.5rem;
+  }
+  .footer #form-left{
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+  .footer #form-right{
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+  .footer input[type=text]{
+    background-color: #5f636d;
+    border: none;
+    border-radius: 0px;
+    font-size: 3rem;
+    color: #BDBDBD;
+  }
+  .footer .btn{
+    font-size: 3rem;
+  }
+  .footer #redes{
+    font-size: 2.5rem;
+  }
+
+}
+/* Landscape phones and down */
+@media (max-width: 481px) {
+  .footer{
+    font-size: 3.5rem;
+  }
+  .footer #title{
+    font-size: 5rem;
+    margin-top: 5%;
+  }
+  .footer #form-left{
+    padding-left: 15%;
+    padding-right: 15%;
+    margin-bottom: 10%;
+  }
+  .footer #form-right{
+    padding-left: 15%;
+    padding-right: 15%;
+    padding-bottom: 5%;
+  }
+  .footer input[type=text]{
+    background-color: #5f636d;
+    border: none;
+    border-radius: 0px;
+    font-size: 4rem;
+    color: #BDBDBD;
+  }
+  .footer .btn{
+    font-size: 4rem;
+  }
+  .footer #redes{
+    font-size: 3.5rem;
+  }
+  .footer #redes div{
+    margin-top: 5%;
+  }
+  .footer #redes a{
+    margin-right: 5%
+  }
+}
+
+
+.title-block{
+  background-position: center center;
+  background-repeat: no-repeat;
+  color: #fff;
+  padding: 3%;
+  font-family: 'Avenir Book';
+  font-size: 2em;
+  margin-top: 5%;
+}
+@media (max-width: 958.5px) {
+  .title-block{
+    margin-top: 8%;
+  }
+  #navbarResponsive{
+    display: block !important;
+  }
+  #navbarResponsive:not(.show) {
+    display: none !important;
+}
+}
+
+@-moz-document url-prefix() {
+  .dropdown-toggle::after{
+    content: "" !important;
+    display: inline-block;
+  }
+}  
+
+.dropdown a{
+  font-weight: 100 !important;
+  font-size: 1.5rem;
+}
+

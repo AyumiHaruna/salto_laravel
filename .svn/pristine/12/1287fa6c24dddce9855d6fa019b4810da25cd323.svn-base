@@ -1,0 +1,98 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Application Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register all of the routes for an application.
+| It's a breeze. Simply tell Laravel the URIs it should respond to
+| and give it the controller to call when that URI is requested.
+|
+*/
+
+Route::get('/', 'IndexController@index')->name('IndexController.index');
+Route::POST('/submitComments', 'IndexController@submitComments')->name('IndexController.submitComments');
+
+Route::GET('/login', function(){  return view('auth.login');  });
+Route::GET('/register', function(){  return view('auth.register');  });
+
+Route::auth();
+
+Route::get('/dashboard', 'HomeController@index')->middleware('auth');
+Route::GET('/sendRegConfirmMail', 'HomeController@sendRegConfirmMail')->name('home.sendRegConfirmMail');
+Route::GET('/accountVallidation/{id}/{code}', 'HomeController@accountVallidation')->name('home.accountVallidation');
+Route::get('/logout', 'HomeController@logout');
+
+// Administración de Usuarios
+Route::get('/Usuarios', 'UserController@index')->name('users.index');
+Route::get('/Usuarios/buscar/secondItem/{secondItem}', 'UserController@findByRole');
+Route::get('/Usuarios/buscar/nombre', 'UserController@search');
+Route::post('/Usuarios/actualizar', 'UserController@actualizar');
+
+Route::post('/Usuarios/crear', 'UserController@store');
+Route::delete('/Usuarios/borrar', 'UserController@destroy');
+Route::get('/Usuarios/buscar/id', 'UserController@getUserById');
+
+// Administración de Roles
+Route::get('/Roles', 'RoleController@index')->name('roles.index');
+Route::get('/Roles/buscar/secondItem/{secondItem}', 'RoleController@findByPermission');
+Route::get('/Roles/buscar/nombre', 'RoleController@search');
+Route::post('/Roles/actualizar', 'RoleController@actualizar');
+
+Route::post('/Roles/crear', 'RoleController@store');
+Route::delete('/Roles/borrar', 'RoleController@destroy');
+Route::get('/Roles/buscar/id', 'RoleController@getRoleById');
+
+// Administración de Permisos
+Route::get('/Permisos', 'PermissionController@index')->name('permissions.index');
+Route::get('/Permisos/buscar/secondItem/{secondItem}', 'PermissionController@findByRole');
+Route::get('/Permisos/buscar/nombre', 'PermissionController@search');
+Route::post('/Permisos/actualizar', 'PermissionController@actualizar');
+
+Route::post('/Permisos/crear', 'PermissionController@store');
+Route::delete('/Permisos/borrar', 'PermissionController@destroy');
+Route::get('/Permisos/buscar/id', 'PermissionController@getPermissionById');
+
+// Administración de Empresas
+Route::get('/Empresa', 'CompanyController@index')->name('company.index');
+Route::get('/Empresa/buscar/secondItem/{secondItem}', 'CompanyController@findByRole');
+Route::get('/Empresa/buscar/nombre', 'CompanyController@search');
+Route::post('/Empresa/actualizar', 'CompanyController@actualizar');
+
+Route::post('/Empresa/crear', 'CompanyController@store');
+Route::delete('/Empresa/borrar', 'CompanyController@destroy');
+Route::get('/Empresa/buscar/id', 'CompanyController@getCompanyById');
+
+
+//--AdminController
+Route::GET('/blog', function(){      return redirect('/blog/categories');     });
+Route::GET('/blog/categories', 'AdminController@blogCategoriesIndex')->name('AdminController.blogCategoriesIndex');
+Route::POST('/blog/categories/postImg', 'AdminController@blogCategoriesPostImg')->name('AdminController.blogCategoriesPostImg');
+Route::POST('/blog/categories/create', 'AdminController@blogCategoriesCreate')->name('AdminController.blogCategoriesCreate');
+Route::POST('/blog/categories/update', 'AdminController@blogCategoriesUpdate')->name('AdminController.blogCategoriesUpdate');
+Route::POST('/blog/categories/toggle', 'AdminController@blogCategoriesToggle')->name('AdminController.blogCategoriesToggle');
+
+Route::GET('/blog/post/show/{theme}', 'AdminController@blogPostIndex')->name('AdminController.blogPostIndex');
+Route::GET('/blog/post/single/{id}', 'AdminController@blogPostSingle')->name('AdminController.blogPostSingle');
+Route::GET('/blog/post/create', 'AdminController@blogPostCreate')->name('AdminController.blogPostCreate');
+Route::POST('/blog/post/store', 'AdminController@blogPostStore')->name('AdminController.blogPostStore');
+Route::POST('/blog/post/toggle', 'AdminController@blogPostToggle')->name('AdminController.blogPostToggle');
+Route::GET('/blog/post/update/{id}', 'AdminController@blogPostUpdate')->name('AdminController.blogPostUpdate');
+Route::POST('/blog/like/toggle', 'AdminController@blogLikeToggle')->name('AdminController.blogLikeToggle');
+
+Route::GET('/resources', 'AdminController@resourcesIndex')->name('AdminController.resourcesIndex');
+Route::POST('/resources/resPostFile', 'AdminController@resPostFile')->name('AdminController.resPostFile');
+Route::POST('/resources/store', 'AdminController@resStore')->name('AdminController.resStore');
+Route::POST('/resources/update', 'AdminController@resUpdate')->name('AdminController.resUpdate');
+Route::POST('/resources/delete', 'AdminController@resDelete')->name('AdminController.resDelete');
+Route::POST('/resources/resDownPlus', 'AdminController@resDownPlus')->name('AdminController.resDownPlus');
+
+Route::GET('/perfil', 'AdminController@perfilIndex')->name('AdminController.perfilIndex');
+Route::POST('/perfil/upload', 'AdminController@perfilUploadFile')->name('AdminController.perfilUploadFile');
+Route::POST('/perfil/update', 'AdminController@perfilUpdate')->name('AdminController.perfilUpdate');
+
+
+//--ProvisionalController
+Route::GET('/provisional', 'ProvisionalController@index')->name('ProvisionalController.index');
+Route::POST('/provisional', 'ProvisionalController@store')->name('ProvisionalController.store');

@@ -1,0 +1,120 @@
+<?php
+
+namespace App\Http\Controllers\API;
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\User;
+use App\Sessions;
+use Illuminate\Support\Facades\Auth;
+use Validator;
+
+class PassportController extends Controller
+{
+  public $successStatus = 200;
+
+  /**
+   * login api
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function login(){
+    if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
+      $user = Auth::user();
+      $success['token'] =  $user->createToken('MyApp')->accessToken;
+      return response()->json(['success' => $success], $this->successStatus);
+    }else{
+      return response()->json(['error'=>'Unauthorised'], 401);
+    }
+  }
+
+  /**
+   * Register api
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function register(Request $request){
+    $validator = Validator::make($request->all(), [
+      'name' => 'required',
+      'last_name' => 'required',
+      'birthdate' => 'date_format:"Y-m-d',
+      'email' => 'required|email|unique:users',
+      'password' => 'required',
+      'c_password' => 'required|same:password',
+    ]);
+    if ($validator->fails()) {
+      return response()->json(['error'=>$validator->errors()], 401);
+    }
+    $input = $request->all();
+    $input['password'] = bcrypt($input['password']);
+    $user = User::create($input);
+    $success['token'] =  $user->createToken('MyApp')->accessToken;
+    $success['name'] =  $user->name;
+    $success['last_name'] =  $user->last_name;
+    $success['birthdate'] =  $user->birthdate;
+    $success['email'] =  $user->email;
+    $success['photo'] =  $user->photo;
+
+    return response()->json(['success'=>$success], $this->successStatus);
+  }
+
+  /**
+   * auth details api
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function getDetails(){
+    $user = Auth::user();
+    return response()->json(['success' => $user], $this->successStatus);
+  }
+
+  /**
+   * session details api
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function getSessionDetails($id){
+    //get general data of session
+    $sesiones = Sessions::join('users as coach', 'sessions.coach_id', '=', 'coach.id')
+        ->join('users as coachee', 'sessions.coachee_id', '=', 'coachee.id')
+        ->select('sessions.*', 'coach.name as coach_name', 'coach.last_name as coach_last_name', 'coachee.name as coachee_name', 'coachee.last_name as coachee_last_name')
+        ->where('sessions.id', $id)->first();
+
+    return response()->json(['data' => $sesiones], $this->successStatus);
+  }
+
+  /**
+   * session status api
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function sessionStatus($id, $type){
+    //type = 0/coach - 1/cliente
+    // if coach, update the session status
+    if($type == 0){
+      $query = Sessions::where('id', $id)->update([ 'status' => 3 ]);
+      $data['change'] = 1;
+    }
+
+    // get session status
+    $query = Sessions::where('id', $id)->select('status')->first();
+    $data['status'] = $query['status'];
+    // return session status
+    return response()->json(['data' => $data], $this->successStatus);
+  }
+
+  /**
+   * point session api
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function pointSession($id, $point){
+    $query = Sessions::where('id', $id)->update([
+      'eval' => $point
+    ]);
+
+    return response()->json(['success'=>'La sesión ha sido evaluada exitosamente'], $this->successStatus);
+  }
+
+
+}

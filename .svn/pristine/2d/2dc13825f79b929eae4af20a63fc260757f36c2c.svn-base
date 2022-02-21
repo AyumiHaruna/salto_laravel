@@ -1,0 +1,249 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use App\Sessions;
+use App\User;
+use Validator;
+
+class SessionController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $coachesAvailable = null;
+        switch(Session('role')){
+            case 1:
+                $sessions = Sessions::all();
+                break;
+            case 4:
+                $sessions = Sessions::where('coach_id','=',Session('user')->id)->get();
+                break;
+            default:
+                $sessions = Sessions::where('coachee_id','=',Session('user')->id)->get();
+                $coachesAvailable = Sessions::where('status','=',5)->get();
+        }
+        // FALTA LIMITAR LOS COACHES QUE PUEDES VER
+        $coaches = DB::table('users')
+            ->join('role_user', 'role_user.user_id', '=', 'users.id')
+            ->where('role_id','=',4)
+            ->get();
+        $users = User::where('id','!=',Session('user')->id)->get();
+        $section = null;
+        foreach(Session('menu_info') as $group){
+            foreach($group->permissions as $menu_item){
+                if($menu_item->id == 2){ // The Calendar permission id is 2
+                    $section = $menu_item;
+                    break;
+                }
+            }
+        }
+        return view('calendar.index', [
+            'section' => $section,
+            'sessions' => $sessions,
+            'sessions2' => $coachesAvailable,
+            'coaches' => $coaches,
+            'coachees' => $users
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $coaches = DB::table('users')
+            ->join('role_user', 'role_user.user_id', '=', 'users.id')
+            ->where('role_id','=',4)
+            ->get();
+        $users = User::where('id','!=',Session('user')->id)->get();
+        $section = null;
+        foreach(Session('menu_info') as $group){
+            foreach($group->permissions as $menu_item){
+                if($menu_item->id == 2){ // The Calendar permission id is 2
+                    $section = $menu_item;
+                    break;
+                }
+            }
+        }
+        return view('calendar.create', [
+            'section' => $section,
+            'coaches' => $coaches,
+            'coachees' => $users
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|max:255',
+            'description' => 'required|max:255',
+            'coach_id' => 'required|max:255',
+            'start_datetime' => 'required|max:255|date_format:"Y-m-d H:i:s"|after:"2015-01-01"',
+            'end_datetime' => 'required|max:255|date_format:"Y-m-d H:i:s"|after:start_datetime'
+        ]);
+
+        if( $validator->fails() )
+        {
+            return redirect()->route('Calendario.index')->withErrors($validator, 'addsessionForm')->withInput();
+        }
+        $status = '0';
+        switch(Session('role')){
+            case 4:
+                $status = '5';
+                break;
+            default:
+                $status = '0';
+        }
+        $session = new Sessions();
+        $session->name = $request->name;
+        $session->description = $request->description;
+        $session->coach_id = $request->coach_id;
+        $session->coachee_id = $request->coachee_id;
+        $session->status = $status;
+        $session->start_datetime = $request->start_datetime;
+        $session->end_datetime = $request->end_datetime;
+        $session->save();
+        return redirect()->route('Calendario.index');
+    }
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Fetches de session given an id.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function search()
+    {
+        $session = Sessions::find(Input::get('uid'));
+        $response = [];
+
+        if(empty($session))
+        {
+            return response()->json(['status' => 404, 'msg' => 'No se encontro la sesión con id '.\Input::get('uid')], 404);
+        }
+
+        $response['id'] = $session['id'];
+        $response['name'] = $session['name'];
+        $response['description'] = $session['description'];
+        $response['coach_id'] = $session['coach_id'];
+        $response['coachee_id'] = $session['coachee_id'];
+        $response['status'] = $session['status'];
+        $response['start_datetime'] = $session['start_datetime'];
+        $response['end_datetime'] = $session['end_datetime'];
+
+        return response()->json(['status' => 200, 'session' => $response], 200);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|max:255',
+            'description' => 'required|max:255',
+            'coach_id' => 'required|max:255',
+            'start_datetime' => 'required|max:255|date_format:"Y-m-d H:i:s"|after:"2015-01-01"',
+            'end_datetime' => 'required|max:255|date_format:"Y-m-d H:i:s"|after:start_datetime'
+        ]);
+
+        if( $validator->fails() )
+        {
+            return redirect()->route('Calendario.index')->withErrors($validator, 'editsessionForm')->withInput();
+        }
+
+        $session = Sessions::find($request->input('id'));
+        $session->name = $request->input('name');
+        $session->description = $request->input('description');
+        $session->coach_id = $request->input('coach_id');
+        $session->coachee_id = $request->input('coachee_id');
+        $session->start_datetime = $request->input('start_datetime');
+        $session->end_datetime = $request->input('end_datetime');
+
+        $session->save();
+        
+        return redirect()->back()->with([
+            'status' => 200
+        ]);
+    }
+    /**
+     * Show the form for cancelling the session.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function cancel()
+    {
+        $session = Sessions::find(Input::get('uid'));
+        $session->status = 2;
+        $session->save();
+        
+        return response()->json(['status' => 200], 200);
+    }
+    /**
+     * Show the form for accepting the session.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function accept()
+    {
+        $session = Sessions::find(Input::get('uid'));
+        $session->status = 1;
+        $session->save();
+        
+        return response()->json(['status' => 200], 200);
+    }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy()
+    {
+        Sessions::destroy(Input::get('uid'));
+        return response()->json(['status' => 200], 200);
+    }
+}

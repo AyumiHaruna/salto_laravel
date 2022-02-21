@@ -1,0 +1,300 @@
+.navbar-light .navbar-nav .nav-link,
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 1);
+  text-shadow: none;
+}.navbar-light .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:hover {
+  color: rgba(255, 255, 255, .6);
+  -webkit-transition: color 200ms linear;
+  -ms-transition: color 200ms linear;
+  transition: color 200ms linear;
+}
+
+/* parallax holder 1 ------------------------------------------------------*/
+#block-bg1 {
+  color: #fff;
+  position: relative;
+  text-align: center;
+  padding-top: 13%;
+  background-size: cover;
+}
+#block-bg1 .bigText{
+  font-family: "Raleway Bold";
+  font-size: 2.9rem;
+  padding-left: 8%;
+  padding-right: 8%;
+  padding-bottom: 7%;
+}
+#block-bg1 .btn{
+  margin-top: 8%;
+  margin-bottom: 5%;
+  background-color: #8dc044;
+  color: #fff;
+  font-family: "Raleway Bold";
+  font-size: 1.8rem;
+  border-radius: 10px;
+}
+#block-bg1-2{
+  background-color: rgb(0,0,0, 0.5);
+  font-family: "Raleway";
+  font-size: 2.2rem;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  padding-right: 7%;
+  padding-left: 7%;
+}
+
+/* carousel */
+.carouselHeader{
+  font-size: 3.5vw;
+  font-family: "Raleway Bold";
+  color: #fff;
+  z-index: 10;
+  padding-top: 5%;
+  padding-left: 5%;
+  margin-bottom: -11%;
+}
+.carousel{
+  height: 80vh;
+}
+.carouselDiv{
+  height: 80vh;
+  background-size: cover;
+}
+.carouselText{
+  font-size: 3vw;
+  font-family: "Raleway";
+  display: inline;
+  padding-top: 20%;
+  padding-left: 5%;
+  padding-right: 5%;
+  font-weight: bold;
+}
+.slick-dots {
+    position: absolute;
+    bottom: 0px !important;
+    display: block;
+    width: 100%;
+    list-style: none;
+    text-align: center;
+    height: 100px;
+    background-color: rgb(0,0,0, 0.5);
+    padding-top: 35px !important;
+}
+.slick-dots li button:before {
+    font-size: 62px!important;
+}
+.slick-dots li {
+    margin: 0px 1% !important;
+}
+.slick-dots li button:before {
+    color: rgb(255, 255, 255, 0.8) !important;
+}
+
+
+/*
+.ma5slider{
+  width: 100% !important;
+  margin-top: -10.3%;
+}
+.carouselPic{
+  height: 90vh;
+  background-size: cover;
+  background-position: center;
+}
+
+.dots{
+  height: 10% !important;
+  background: rgb(0,0,0, 0.5) !important;
+  position: absolute !important;
+  bottom: 0% !important;
+}
+.dot{
+  width: 1vw !important;
+  height: 2vh !important;
+  margin: 1vw !important;
+  margin-top: 2% !important;
+}
+.dot.active, .dot.active:hover, .inside-dots .dots > .dot:hover {
+    background-color: #25a9e0 !important;
+} */
+
+/* block 2 */
+#block2{
+  background-size: cover;
+  font-family: "Raleway";
+  font-size: 3em;
+  color: #FFF;
+  padding: 3%;
+  z-index: 999;
+}
+
+/* block 3 */
+#block3{
+  padding-left: 7%;
+  padding-right: 7%;
+  padding-top: 8%;
+  font-size: 1.5rem;
+  background-size: cover;
+}
+#block3 #sub1{
+  margin-bottom: 7%;
+}
+#block3 h1{
+  color: #144568;
+  font-family: "Raleway Black";
+  font-size: 3.2rem;
+  margin-bottom: 3%;
+}
+#block3 .block-icon{
+  margin-top: 10%;
+}
+#block3 .btn{
+  margin-top: 5%;
+  background-color: #144588;
+  color: #fff;
+  font-family: "Raleway Bold";
+  font-size: 1.8rem;
+  border-radius: 10px;
+  margin-bottom: 5%;
+}
+
+/* block 4 */
+#block4{
+  background-color: #144568;
+  padding-left: 7%;
+  padding-right: 7%;
+}
+#block4 #sub1{
+  color: #fff;
+  font-family: "Raleway Bold";
+  font-size: 2.8em;
+  margin-top: 7%;
+  margin-bottom: 5%;
+}
+#block4 .coachContainer{
+  padding-left: 3%;
+  padding-right: 3%;
+}
+#block4 .coachContainer img{
+  width: 100%;
+}
+#block4 .coachContainer .name{
+  color: #fff;
+  font-size: 1.7rem;
+  margin-top: 5%;
+  margin-bottom: 15%;
+}
+
+/* block5 */
+#block5{
+  font-size: 1.5rem;
+  color: #51ADB5;
+  padding: 1.5%;
+}
+#imgCertificado{
+  height: 80px;
+  width: auto;
+}
+
+/* block6 */
+#block6{
+  background-color: #144568;
+}
+#block6 .btn{
+  margin-top: 5%;
+  color: #fff;
+  background-color: #144568;
+  font-family: "Raleway Bold";
+  font-size: 1.8rem;
+  border-radius: 10px;
+  margin-bottom: 5%;
+  border: solid 2px #fff;
+}
+
+/* block7 */
+#block7{
+  padding-left: 7%;
+  padding-right: 7%;
+  padding-top: 7%;
+  font-size: 1.5rem;
+  background: #f2f2f2;
+}
+#block7 h1{
+  color: #144568;
+  font-family: "Raleway Black";
+  font-size: 3.2rem;
+  margin-bottom: 3%;
+}
+#block7 .iconContainer{
+  padding-left: 2%;
+  padding-right: 2%;
+  margin-top: 3%;
+}
+#block7 .icon-image{
+  width: 50%;
+}
+#block7 #bigText{
+  padding: 5%;
+  font-size: 3rem;
+  color: #144568;
+}
+
+/* block8 */
+#block8{
+  padding-top: 5%;
+  font-size: 2rem;
+  padding-right: 8%;
+  background-size: cover;
+}
+#block8 #author{
+  text-align: right;
+  right: 5%;
+  font-family: "Raleway Bold";
+  padding-top: 4%;
+  padding-right: 3%;
+}
+#block8 .btnContainer{
+  margin-top: 15%;
+  text-align: center;
+}
+#block8 .btn{
+  background-color: #8dc044;
+  color: #fff;
+  font-family: "Raleway Bold";
+  font-size: 2.5rem;
+  border-radius: 10px;
+  margin-bottom: 15%;
+  padding-right: 40px;
+  padding-left: 40px;
+}
+
+
+
+/*-----------------------------------------------
+                    IMAGES
+------------------------------------------------*/
+/* backgrounds */
+#block3{
+  background-image: url('../../img/info/foto02.jpg');
+}
+
+/*  Carousel images */
+#slide-01-01{
+  background-image: url('../../img/info/slide_enforma.jpg');
+}
+#slide-01-02{
+  background-image: url('../../img/info/slide_estres.jpg');
+}
+#slide-01-03{
+  background-image: url('../../img/info/slide_fumar.jpg');
+}
+#slide-01-04{
+  background-image: url('../../img/info/slide_proposito.jpg');
+}
+#slide-01-05{
+  background-image: url('../../img/info/slide_dieta.jpg');
+}
+#slide-01-06{
+  background-image: url('../../img/info/slide_energia.jpg');
+}

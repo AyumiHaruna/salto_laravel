@@ -1,0 +1,352 @@
+@extends('layouts.mainLayout')
+
+  @section('title') Perfil @endsection
+
+  @section('extraheader')
+    <link rel="stylesheet" href="{{ asset('css/perfil/style.css') }}">
+
+    <!--  upload File  -->
+    <link href="http://hayageek.github.io/jQuery-Upload-File/4.0.11/uploadfile.css" rel="stylesheet">
+    <script src="http://hayageek.github.io/jQuery-Upload-File/4.0.11/jquery.uploadfile.min.js"></script>
+
+    <!-- jquery ui -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+  @endsection
+
+
+  @section('content')
+    <div class="transparentDiv"></div>
+
+    <!-- div alerts -->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-4 offset-md-4 alert-div">
+          - - -
+        </div>
+      </div>
+    </div>
+
+    <!-- form-block -->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-4 offset-md-4 hiddenForm" id="div-photo">
+          <div class="row">
+            <div class="col-md-12 text-right">
+                <button type="button" name="button" class="btn closeBtn"><i class="far fa-times-circle fa-lg"></i></button>
+            </div>
+            <div class="col-md-12">
+              <label for="name">Foto:</label>
+            </div>
+            <div id="upload-photo" class="col-md-12"></div>
+          </div>
+        </div>
+
+        <div class="col-md-4 offset-md-4 hiddenForm" id="div-name">
+          <div class="row">
+            <div class="col-md-12 text-right">
+                <button type="button" name="button" class="btn closeBtn"><i class="far fa-times-circle fa-lg"></i></button>
+            </div>
+            <div class="col-md-12">
+              <label for="name">Nombre:</label>
+              <input type="text" name="name" class="form-control" value="{{ $user['name'] }}" id="input-name">
+            </div>
+            <div class="col-md-12">
+                <button type="button" class="btn btn-info btn-block formSubmit" name="button" id="upd-name" metaDisplay="Nombre">Guardar</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 offset-md-4 hiddenForm" id="div-last_name">
+          <div class="row">
+            <div class="col-md-12 text-right">
+                <button type="button" name="button" class="btn closeBtn"><i class="far fa-times-circle fa-lg"></i></button>
+            </div>
+            <div class="col-md-12">
+              <label for="last_name">Apellido:</label>
+              <input type="text" name="last_name" class="form-control" value="{{ $user['last_name'] }}" id="input-last_name">
+            </div>
+            <div class="col-md-12">
+                <button type="button" class="btn btn-info btn-block formSubmit" name="button" id="upd-last_name" metaDisplay="Apellido">Guardar</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 offset-md-4 hiddenForm" id="div-birthdate">
+          <div class="row">
+            <div class="col-md-12 text-right">
+                <button type="button" name="button" class="btn closeBtn"><i class="far fa-times-circle fa-lg"></i></button>
+            </div>
+            <div class="col-md-12">
+              <label for="birthdate">Fecha de nacimiento:</label>
+              <input type="text" name="birthdate" class="form-control" value="{{ $user['birthdate'] }}" id="input-birthdate">
+            </div>
+            <div class="col-md-12">
+                <button type="button" class="btn btn-info btn-block formSubmit" name="button" id="upd-birthdate" metaDisplay="Fecha de nacimiento">Guardar</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 offset-md-4 hiddenForm" id="div-description">
+          <div class="row">
+            <div class="col-md-12 text-right">
+                <button type="button" name="button" class="btn closeBtn"><i class="far fa-times-circle fa-lg"></i></button>
+            </div>
+            <div class="col-md-12">
+              <label for="description">Descripción:</label>
+              <textarea name="description" class="form-control" value="{{ $user['description'] }}" id="input-description">
+              </textarea>
+            </div>
+            <div class="col-md-12">
+                <button type="button" class="btn btn-info btn-block formSubmit" name="button" id="upd-description" metaDisplay="Descripción">Guardar</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 offset-md-4 hiddenForm" id="div-cv">
+          <div class="row">
+            <div class="col-md-12 text-right">
+                <button type="button" name="button" class="btn closeBtn"><i class="far fa-times-circle fa-lg"></i></button>
+            </div>
+            <div class="col-md-12">
+              <label for="birthdate">Curriculum Vitae:</label>
+            </div>
+            <div id="upload-cv" class="col-md-12"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- info-block -->
+    <div class="container-fluid" id="mainContainer">
+        <div class="row bottomElements">
+          <div class="col-md-4 text-center">
+            <div class="clickeable" id="photo">
+                <img src="{{ asset('files/usersFiles/'.(($user['photo'] == null)? 'avatarPreview.png' : $user['photo'] ) ) }}"  id="perfilPhoto">
+                <i class="fas fa-pencil-alt fa-lg editIcon"></i>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="clickeable" id="name">
+              <label>Nombre:</label> <span id="span-name">{{ $user['name'] }}</span>
+              <i class="fas fa-pencil-alt fa-lg editIcon"></i>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="clickeable" id="last_name">
+              <label>Apellido:</label> <span id="span-last_name">{{ $user['last_name'] }}</span>
+              <i class="fas fa-pencil-alt fa-lg editIcon"></i>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="clickeable" id="birthdate">
+              <label>Fecha de Nacimiento:</label> <span id="span-birthdate">{{ $user['birthdate'] }}</span>
+              <i class="fas fa-pencil-alt fa-lg editIcon"></i>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div id="email">
+              <label>Correo:</label> <span id="span-email">{{ $user['email'] }}</span>
+            </div>
+          </div>
+
+          @IF( Session('role') == 6 || Session('role') == 1)
+            <!-- bloque para clientes de empresa -->
+            <div class="col-md-12">
+              <div id="company_id">
+                <label>Empresa:</label> <span id="span-company_id">{{ $company['display_name'] }}</span>
+              </div>
+            </div>
+          @ENDIF
+
+          @IF( Session('role') == 6 || Session('role') == 1)
+          <!-- bloque para Coaches -->
+          <div class="col-md-12">
+            <div class="clickeable" id="description">
+              <label>Descripción:</label> <span id="span-description">{{ $user['description'] }}</span>
+              <i class="fas fa-pencil-alt fa-lg editIcon"></i>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="clickeable" id="cv">
+              <label>Curriculum Vitae:</label> <a href="{{ url('files/usersFiles/'.$user['cv']) }}" id="span-cv" download>{{ $user['cv'] }}</a>
+              <i class="fas fa-pencil-alt fa-lg editIcon"></i>
+            </div>
+          </div>
+          @ENDIF
+
+          <div class="col-md-12">
+            <div id="created_at">
+              <label>Miembro desde:</label> <span id="span-created_at">{{ date_format($user['created_at'], 'd-M-Y') }}</span>
+            </div>
+          </div>
+        </div>
+    </div>
+  @endsection
+
+  @section('jqueryScripts')
+    <script type="text/javascript">
+      $(document).ready(function(){
+        //------------------------------------------
+        //                 VARS
+        //-----------------------------------------
+        $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+
+
+        //------------------------------------------
+        //          INITIAL CONDITIONS
+        //-----------------------------------------
+        // config datepicker option
+        $.datepicker.regional['es'] = {
+         closeText: 'Cerrar',
+         prevText: '< Ant',
+         nextText: 'Sig >',
+         currentText: 'Hoy',
+         monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+         monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+         dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+         dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+         dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+         weekHeader: 'Sm',
+         dateFormat: 'dd/mm/yy',
+         firstDay: 1,
+         isRTL: false,
+         showMonthAfterYear: false,
+         yearSuffix: ''
+        };
+        $.datepicker.setDefaults($.datepicker.regional['es']);
+
+        // enable datepicker
+        $("#input-birthdate").datepicker({
+          dateFormat: "yy-mm-dd",
+          altFormat: "yy-mm-dd",
+          changeMonth: true,
+          changeYear: true,
+          showButtonPanel: true,
+          yearRange: '1910:'+((new Date).getFullYear())
+        });
+
+
+        //------------------------------------------
+        //            DOM FUNCTIONS
+        //------------------------------------------
+        // show EditIcon on hover
+        $(".clickeable").hover(
+          function(){
+              $(this).children(".editIcon").show();
+          }, function(){
+              $(this).children(".editIcon").hide();
+          }
+        );
+
+        // show update inputs
+        $(".clickeable").on('click', function(){
+          $("#div-"+$(this).attr('id')).show();
+          $(".transparentDiv").show();
+        });
+
+        // hide update inputs
+        $(".closeBtn").on('click', function(){
+          $(".hiddenForm").hide();
+          $(".transparentDiv").hide();
+        });
+
+
+        //------------------------------------------
+        //            GENERAL FUNCTIONS
+        //------------------------------------------
+        //  show alerts
+        function showAlert( type, message ) {
+          if (type == 'ok'){
+            $(".alert-div").html(message);
+            $(".alert-div").show();
+            setTimeout(function(){
+              $(".alert-div").hide();
+            }, 3500);
+          } else if (type == 'error'){
+            $(".alert-div").html(message);
+            $(".alert-div").show();
+            setTimeout(function(){
+              $(".alert-div").hide();
+            }, 3500);
+          }
+        }
+
+
+        //------------------------------------------
+        //            AJAXFUNCTIONS
+        //------------------------------------------
+        // Ajax function to upload photo
+        $("#upload-photo").uploadFile({
+            url:"{{ url('/perfil/upload') }}",
+            fileName:"myfile",
+            formData: {type: 'photo', id: {{ $user['id'] }} },
+            multiple: false,
+            allowedTypes: "jpg,jpeg,png,gif",
+            onSuccess:function(files,data,xhr,pd){
+              $(".ajax-file-upload-container").html('');
+              $("#div-photo, .transparentDiv").hide();
+              showAlert('ok', '<span style="color:#00cc00"> <i class="fas fa-check-circle fa-lg"></i> Se actualizó la foto exitosamente </span>');
+              $("#perfilPhoto").attr("src", "{{ asset('files/usersFiles') }}/"+data);
+            },
+            error: function (e, data) {
+              $(".ajax-file-upload-container").html('');
+              showAlert('error', '<span style="color:#ff3300"> <i class="fas fa-exclamation-circle fa-lg"></i> Error, favor de reintentarlo </span>');
+            }
+        });
+
+        // Ajax function to upload CV
+        $("#upload-cv").uploadFile({
+            url:"{{ url('/perfil/upload') }}",
+            fileName:"myfile",
+            formData: {type: 'cv', id: {{ $user['id'] }} },
+            multiple: false,
+            onSuccess:function(files,data,xhr,pd){
+              $(".ajax-file-upload-container").html('');
+              $("#div-cv, .transparentDiv").hide();
+              showAlert('ok', '<span style="color:#00cc00"> <i class="fas fa-check-circle fa-lg"></i> Se actualizó el curriculum vitae exitosamente </span>')
+              $("#span-cv").attr("href", "{{ url('files/usersFiles') }}/"+data);
+              $("#span-cv").html(data);
+
+            },
+            error: function (e, data) {
+              $(".ajax-file-upload-container").html('');
+              showAlert('error', '<span style="color:#ff3300"> <i class="fas fa-exclamation-circle fa-lg"></i> Error, favor de reintentarlo </span>');
+            }
+        });
+
+        // Ajax function to update perfil info
+        $(".formSubmit").on('click', function(){
+            var flag = ($(this).attr('id')).substring(4);
+            var metaDisplay = $(this).attr('metaDisplay');
+            $.ajax({
+            data: { "_token": "{{ csrf_token() }}",
+                    "id": {{ $user['id'] }},
+                    flag,
+                    value: $("#input-"+flag).val()
+                  },
+            type: "POST",
+            url: "{{ url('/perfil/update') }}"
+            })
+            .done(function(data){
+                $("#div-"+flag).hide();
+                $(".transparentDiv").hide();
+                $("#span-"+flag).html(data);
+                showAlert( 'ok', '<span style="color:#00cc00"> <i class="fas fa-check-circle fa-lg"></i> "'+metaDisplay+'" Se actualizó exitosamente </span>' );
+            })
+            .fail(function(data){
+              console.log(data);
+                showAlert('error', '<span style="color:#ff3300"> <i class="fas fa-exclamation-circle fa-lg"></i> Error, favor de reintentarlo </span>' );
+            });
+        });
+      });
+    </script>
+  @endsection

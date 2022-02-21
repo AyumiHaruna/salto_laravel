@@ -1,0 +1,93 @@
+@extends('layouts.mainLayout')
+
+
+  @section('title') Blog - Show @endsection
+
+  @section('extraheader')
+    <link rel="stylesheet" href="{{ asset('css/blog/style.css') }}">
+  @endsection
+
+
+  @section('content')
+      <div class="container postContainer" id="mainContainer">
+        <div class="row">
+          <div class="col-md-12 text-center" id="postDate">
+            {{ date_format( $post->created_at, 'd-M-Y') }}
+          </div>
+          <div class="col-md-12 text-center">
+            <div class="row">
+              <div class="col-md-12" id="title">
+                  {{ $post->titulo }}
+              </div>
+              <div class="col-md-2 offset-5 text-center">
+                <hr>
+              </div>
+              <div class="col-md-12">
+                @FOR($x=0; $x<count($themes); $x++)
+                  <a href="{{ url('/blog/post/show/'.$themes[$x]['id_Tema']) }}"><button type="button" class="btn catBtn">{{ $themes[$x]['descripcion'] }}</button></a>
+                  {{ (($x == (count($themes)) - 1)? '' : ',' ) }}
+                @ENDFOR
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-10 offset-1 text-center">
+            <img src="{{ asset('img/imgTemas/'.$post->foto) }}" alt="" id="imgPost">
+          </div>
+          <div class="col-md-10 offset-1" id="postMsj">
+            {!! $post->mensaje !!}
+          </div>
+          <div class="col-md-12 text-right likeBlock">
+            <hr>
+            @IF( Session('user') != null )
+              <button type="button" name="button" class="btn {{ (($liked == false)? '' : 'iColor' ) }} " id="likeBtn" metaVal="{{ (($liked == false)? '0' : '1' ) }}"> <i class="{{ (($liked == false)? 'far ' : 'fas ' ) }}fa-thumbs-up fa-2x"></i> </button>
+              <span id="noLikes">{{ $noLikes }}</span>
+            @ENDIF
+          </div>
+          <div class="col-md-12 text-center">
+            @include('partials._btnAgendarCita')
+          </div>
+        </div>
+      </div>
+  @endsection
+
+
+
+  @include('partials._footer')
+
+
+  @section('jqueryScripts')
+    <script type="text/javascript">
+      $(document).ready(function(){
+        //toogle categorie stat
+        $("#likeBtn").on('click', function(){
+          var actualVal =  $(this).attr('metaVal');
+            $.ajax({
+              data: { "_token": "{{ csrf_token() }}",
+                      "id_post": {{ $post->id }},
+                      "actual_stat": actualVal
+                    },
+              type: "POST",
+              url: "{{ url('blog/like/toggle') }}"
+            })
+            .done(function(data){
+              data = JSON.parse(data);
+              $('#likeBtn').attr('metaVal', data['actualStat']);    // change btn metaVal data
+              //change icon and style of #likeBtn
+              if( data['actualStat'] == 0 ){  // 0 =  no like
+                $('#likeBtn').html('<i class="far fa-thumbs-up fa-2x"></i>');
+                $('#likeBtn').removeClass('iColor');
+              } else {    // 1 = like
+                $('#likeBtn').html('<i class="fas fa-thumbs-up fa-2x"></i>');
+                $('#likeBtn').addClass('iColor');
+              }
+              //set the number of likes in post
+              $("#noLikes").html( data['noLikes'] );
+            })
+            .fail(function(data){
+              console.log('likeBtn toggler:(fail)')
+            });
+          });
+      });
+    </script>
+  @endsection

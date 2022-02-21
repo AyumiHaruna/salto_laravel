@@ -1,0 +1,302 @@
+  <?php $__env->startSection('title'); ?> <?php echo e($section->display_name); ?> <?php $__env->stopSection(); ?>
+
+  <?php $__env->startSection('extraheader'); ?>
+  	<link rel="stylesheet" href="<?php echo e(env('PUBLIC_URL', 'http://localhost/public').'/css/users.css'); ?>">
+    <link rel="stylesheet" href="<?php echo e(env('PUBLIC_URL', 'http://localhost/public').'/css/material/material-design.min.css'); ?>">
+  	<link rel="stylesheet" href="<?php echo e(env('PUBLIC_URL', 'http://localhost/public').'/css/bootstrap/bootstrap-extend.min.css'); ?>">
+  <?php $__env->stopSection(); ?>
+
+ 
+
+
+
+  <?php $__env->startSection('content'); ?>
+  <!-- Page -->
+    <div id="users_page" class="row">
+
+        <!-- Sidebar -->
+        <?php echo $__env->make('admin.partials.sidebar', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+        <!-- End Sidebar -->
+
+        <!-- Main Content -->
+        <div id="page-main" class="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-10">
+            <!-- Content Header -->
+            <div class="page-header row">
+                <h1 class="users_page-title col-6">Gestión de usuarios</h1>
+                <div class="page-search-actions col-5">
+                    <form action="<?php echo e(env('PUBLIC_URL', 'http://localhost/public').'/'.$section->name.'/buscar/nombre'); ?>" method="GET">
+                        <div class="input-search input-search-dark">
+                            <i class="input-search-icon md-search" aria-hidden="true"></i>
+                            <input id="search" type="text" class="form-control" placeholder="Búsqueda..." name="q" value="<?php if( isset($query) && !empty($query) ): ?> <?php echo e(trim($query)); ?> <?php endif; ?>">
+                            <button type="button" class="input-search-close icon md-close" aria-label="Close"></button>
+                        </div>
+                        <input type="submit" hidden="hidden">
+                    </form>
+                </div>
+            </div>
+            <!-- End Content Header -->
+
+            <!-- Content -->
+            <div id="page-content" class="page-content page-content-table">
+                <table class="table is-indent tablesaw" data-tablesaw-mode="stack" data-plugin="animateList" data-animate="fade" data-child="tr" data-selectable="selectable">
+                    <thead>
+                        <tr>
+                            <th class="pre-cell"></th>
+                            <th class="cell-30" scope="col" data-tablesaw-sortable-col data-tablesaw-priority="3">
+                                <span class="checkbox-custom checkbox-primary checkbox-lg ">
+                                    <input id="users-select-all" type="checkbox" class="contacts-checkbox selectable-all" id="select_all"/>
+                                    <label for="select_all"></label>
+                                </span>
+                            </th>
+                            <th class="cell-300" scope="col" data-tablesaw-sortable-col data-tablesaw-priority="3" style="text-align: left;font-family:'AvenirLTStd-Light';font-size: 2vh;color: #AAAAAA !important">Nombre</th>
+                            <th class="cell-300" scope="col" data-tablesaw-sortable-col data-tablesaw-priority="5" style="text-align: left;font-family:'AvenirLTStd-Light';font-size: 2vh;color: #AAAAAA !important">Correo electrónico</th>
+                            <th class="cell-300" scope="col" data-tablesaw-sortable-col data-tablesaw-priority="6" style="text-align: left;font-family:'AvenirLTStd-Light';font-size: 2vh;color: #AAAAAA !important">ID</th>
+                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="7" style="text-align: left;font-family:'AvenirLTStd-Light';font-size: 2vh;color: #AAAAAA !important">Rol</th>
+                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="8" style="text-align: left;font-family:'AvenirLTStd-Light';font-size: 2vh;color: #AAAAAA !important">Empresa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php if( isset($mainItem) ): ?>
+                        <?php $__currentLoopData = $mainItem; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <tr>
+                            <td class="pre-cell"></td>
+                            <td class="cell-30">
+                                <span class="checkbox-custom checkbox-primary checkbox-lg">
+                                    <input type="checkbox" class="contacts-checkbox selectable-item checkbox-user" name="user" value="<?php echo e($user['id']); ?>" id="user_<?php echo e($index); ?>"/>
+                                    <label for="user_<?php echo e($index); ?>"></label>
+                                </span>
+                            </td>
+                            <td class="cell-300">
+                                <a href="javascript:void(0)" data-uid="<?php echo e($user['id']); ?>" class="openEditUserModal tdfirstname" style="text-align: left;font-family:'AvenirLTStd-Light';font-size: 1.5vh;color: #10181F !important"><?php echo e($user['name'].' '.$user['last_name']); ?></a>
+                            </td>
+                            <td class="cell-300 tdemail" style="text-align: left;font-family:'AvenirLTStd-Light';font-size: 1.5vh;color: #AAAAAA !important"><?php echo e($user['email']); ?></td>
+                            <td class="cell-300 tdusername" style="text-align: left;font-family:'AvenirLTStd-Light';font-size: 1.5vh;color: #AAAAAA !important"><?php echo e($user['id']); ?></td>
+                            <td class="cell-300" style="text-align: left;font-family:'AvenirLTStd-Light';font-size: 1.5vh;color: #AAAAAA !important"><?php echo e($user['role_name']); ?></td>
+                            <td class="cell-300" style="text-align: left;font-family:'AvenirLTStd-Light';font-size: 1.5vh;color: #AAAAAA !important"><?php echo e($user['company_name']); ?></td>
+                        </tr>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+            <!-- End Content -->
+
+        </div>
+        <!-- End Main Content -->
+
+    </div>
+    <!-- End Page -->
+
+    <!-- Site Action -->
+    <div class="site-action">
+        <button id="addUser-button" type="button" class="btn-raised btn btn-floating" style="background-color: white;outline: none;border-color: transparent;color:#4262aa;">
+            <i id="plus_icon" class="front-icon md-plus animation-scale-up" aria-hidden="true"></i>
+            <i id="close_icon" class="back-icon md-close animation-scale-up" aria-hidden="true"></i>
+        </button>
+        <div id="garbage-button" class="site-action-buttons">
+                <button type="button" data-action="trash" class="btn-raised btn btn-danger btn-floating animation-slide-bottom">
+                <i class="icon md-delete" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+    <!-- End Site Action -->
+
+    <!-- Add User Form -->
+    <div class="modal modal-primary fade" id="addUserModal" aria-hidden="true" aria-labelledby="addUserModal"
+         role="dialog" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Crear Nuevo Usuario</h4>
+                    <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
+                </div>
+
+                <?php if(count($errors->userForm) > 0): ?>
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <ul>
+                        <?php $__currentLoopData = $errors->userForm->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <li><?php echo e($error); ?></li>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+                
+                <div class="modal-body">
+                    <form id="addUserForm" method="POST" action="<?php echo e(env('PUBLIC_URL', 'http://localhost/public').'/'.$section->name.'/crear'); ?>">
+                        <?php echo csrf_field(); ?>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control <?php echo e(($errors->userForm->has('first_name')) ? 'focus' : ''); ?>" name="first_name" placeholder="Nombre" value="<?php echo e(old('first_name')); ?>" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control <?php echo e(($errors->userForm->has('last_name')) ? 'focus' : ''); ?>" name="last_name" placeholder="Apellidos" value="<?php echo e(old('last_name')); ?>" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control <?php echo e(($errors->userForm->has('email')) ? 'focus' : ''); ?>" name="email" placeholder="Correo Electrónico" value="<?php echo e(old('email')); ?>" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" data-plugin="strength" class="form-control <?php echo e(($errors->userForm->has('password')) ? 'focus' : ''); ?>" name="password" placeholder="Contraseña" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;"/>
+                        </div>
+                        <div class="form-group">
+                            <select name="role" data-plugin="selectpicker" data-noneSelectedText="Ninguno">
+                                <?php if(isset($secondItem)): ?>
+                                    <?php $__currentLoopData = $secondItem; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $role): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($role->id); ?>" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;" ><?php echo e($role->display_name); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php endif; ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select name="company" data-plugin="selectpicker" data-noneSelectedText="Ninguno">
+                                <?php if(isset($companies)): ?>
+                                    <?php $__currentLoopData = $companies; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $company): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($company->id); ?>" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;" ><?php echo e($company->display_name); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php endif; ?>
+                            </select>
+                        </div>                    
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" id="submitAddUserForm" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;background-color: #D49000
+ !important; border-color: #D49000 !important">Guardar</button>
+                    <a class="btn btn-sm btn-white btn-pure" data-dismiss="modal" href="javascript:void(0)" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;border-color: #AAAAAA !important; color: #AAAAAA !important">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Add User Form -->
+
+    <!-- Edit User Form -->
+    <div class="modal modal-primary fade" id="editUserModal" aria-hidden="true" aria-labelledby="editUserModal"
+         role="dialog" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Editar Usuario</h4>
+                    <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
+                </div>
+
+                <?php if(count($errors->editUserForm) > 0): ?>
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <ul>
+                            <?php $__currentLoopData = $errors->editUserForm->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <li><?php echo e($error); ?></li>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+                <form id="editUserForm" method="post" action="<?php echo e(env('PUBLIC_URL', 'http://localhost/public').'/'.$section->name.'/actualizar'); ?>">
+
+                    <div class="modal-body">
+                        
+                        <?php echo csrf_field(); ?>
+
+
+                        <div class="form-group">
+                            <input id="formuid" type="hidden" class="form-control" name="uid" placeholder="" value="<?php echo e(old('uid')); ?>" />
+                        </div>
+                        <div class="form-group">
+                            <input id="formfirstname" type="text" class="form-control <?php echo e(($errors->editUserForm->has('first_name')) ? 'focus' : ''); ?>" name="first_name" placeholder="Nombre" value="<?php echo e(old('first_name')); ?>" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;"/>
+                        </div>
+                        <div class="form-group">
+                            <input id="formlastname" type="text" class="form-control <?php echo e(($errors->editUserForm->has('last_name')) ? 'focus' : ''); ?>" name="last_name" placeholder="Apellidos" value="<?php echo e(old('last_name')); ?>" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;"/>
+                        </div>
+                        <div class="form-group">
+                            <input id="formemail" type="text" readonly class="form-control <?php echo e(($errors->editUserForm->has('email')) ? 'focus' : ''); ?>" name="email" placeholder="Correo Electrónico" value="<?php echo e(old('email')); ?>" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;"/>
+                        </div>
+                        <!--<div class="form-group">
+                            <input id="formpass" type="text" class="form-control" name="password" placeholder="Contraseña" data-plugin="strength" data-show-toggle="true"/>
+                        </div>
+                        <br><br>-->
+                        <div class="form-group">
+                            <select id="editselectrol" name="rol" data-plugin="selectpicker" data-noneSelectedText="Ninguno">
+                                <?php if(isset($secondItem)): ?>
+                                    <?php $__currentLoopData = $secondItem; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $role): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($role->id); ?>" class="edit_role_option" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;" <?php if(old('rol') == $role->id): ?> selected <?php endif; ?>><?php echo e($role->display_name); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php endif; ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select id="editselectcompany" name="company_edit" data-plugin="selectpicker" data-noneSelectedText="Ninguno">
+                                <?php if(isset($companies)): ?>
+                                    <?php $__currentLoopData = $companies; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $company): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($company->id); ?>" class="edit_company_option" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;" <?php if(old('company') == $company->id): ?> selected <?php endif; ?>><?php echo e($company->display_name); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php endif; ?>
+                            </select>
+                        </div>
+                        
+                       
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;background-color: #D49000
+ !important; border-color: #D49000 !important">Actualizar</button>
+                        <a class="btn btn-sm btn-white btn-pure" data-dismiss="modal" href="javascript:void(0)" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;border-color: #AAAAAA !important; color: #AAAAAA !important"">Cancelar</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <!-- End Edit User Form -->
+
+    <!-- Add Label Form -->
+    <div class="modal fade" id="addLabelForm" aria-hidden="true" aria-labelledby="addLabelForm"
+         role="dialog" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
+                    <h4 class="modal-title">Add New Label</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="lablename" placeholder="Label Name"
+                            />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-dismiss="modal" type="submit">Save</button>
+                    <a class="btn btn-sm btn-white btn-pure" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Add Label Form -->
+<script>
+    $('#users_page ').css('padding-top', $('#mainNav').innerHeight());
+    window.onresize = function()
+    {
+        $('#users_page ').css('padding-top', $('#mainNav').innerHeight());
+    }    
+</script>
+
+  <?php $__env->stopSection(); ?>
+
+
+
+ 
+<?php $__env->startSection('jqueryScripts'); ?>
+<script>
+    var route_users_destroy = "<?php echo e(env('PUBLIC_URL', 'http://localhost/public').'/Usuarios/borrar'); ?>";
+    var route_users_get_user = "<?php echo e(env('PUBLIC_URL', 'http://localhost/public').'/Usuarios/buscar/id'); ?>";
+    var token = '<?php echo e(csrf_token()); ?>';
+
+</script>
+<script src="<?php echo e(asset('js/users.js')); ?>"></script>
+<script> 
+    if(<?php echo e(count($errors->editUserForm)); ?> > 0){
+        $('#editUserModal').modal('show');
+    } 
+    if(<?php echo e(count($errors->userForm)); ?> > 0){
+        $('#addUserModal').modal('show');
+    } 
+</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.mainLayout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

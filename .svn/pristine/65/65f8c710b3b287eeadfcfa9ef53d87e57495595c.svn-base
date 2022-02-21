@@ -1,0 +1,264 @@
+/* Fonts */
+.goal_title{
+    letter-spacing: 3px;
+    font-family: 'Avenir Heavy';
+    font-size: 2.6rem;
+    line-height: 80%;
+}
+.goal_text{
+    font-family: 'Avenir Medium';
+    font-size: 1.1vw;
+    min-height: 3em;
+}
+.goal_add{
+    font-family: 'Avenir Medium';
+    font-size: 1.1vw;
+    color: #606dbf;
+}
+.goal_date{
+    font-family: 'Avenir Book';
+    font-size: 1.5vw;
+}
+/* Edit Buttons */
+.goal_edit_button{
+
+}
+.button{
+    cursor: pointer;
+}
+/* 
+ * Main Container 
+ */
+#main_container {
+    background: linear-gradient(to right, #7985fc, #6588fe);
+    color: #ffffff;
+    padding: 0% 5%;
+}
+/*
+ * Vision
+ */
+
+/* Vision - title */
+#goal_vision{
+    padding-top: 2%;
+}
+#goal_vision_header_text{
+    margin-left: 3%;
+}
+#goal_vision_header_edit{
+    height: 1.5rem;
+    margin-left: 2%;
+    margin-bottom: .5rem;
+}
+#goal_vision_header_edit img{
+    width: auto;
+    height: 100%;
+}
+/* Vision - description */
+#goal_vision_text{
+    background-color: rgba(255, 255, 255, .2);
+    padding: 3%;
+    min-height: 200px;
+}
+/* Vision - image */
+#goal_vision_img{
+    width: 50%;
+    margin-left: 15%;
+    margin-top: 5%;
+    margin-bottom: 10%;
+}
+#goal_vision_img img{
+    width: 100%;
+    height: auto;
+}
+#goal_vision_text_input{
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 200px;
+    text-align: right;
+    display: none;
+}
+#goal_vision_text_textarea{
+    width: 100%;
+    height: 100%;
+    min-height: 200px;
+    text-align: left;
+}
+#goal_vision_text_guardar{
+    margin-right: 1%;
+    text-decoration: underline;
+    cursor: pointer;
+}
+/*
+ * 3 Monthly
+ */
+/* 3 Monthly - title */
+#goal_3monthly{
+    padding-top: 1%;
+}
+#goal_3monthly_header_text{
+    padding-left: 3%;
+    margin-top: auto;
+}
+/* Baloon */
+#goal_3monthly_header_balloon{
+    padding:0;
+    display: none;
+}
+#goal_3monthly_header_balloon img{
+    width: 100%;
+    height: auto;
+}
+/* Goals */
+#goal_3monthly_text{
+    background-color: rgba(255, 255, 255, .2);
+    padding: 3%;
+    min-height: 200px;
+    margin-bottom: 10%;
+}
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.dateContainer{
+    display: block;
+    position: relative;
+    margin-bottom: 12px;
+    cursor: pointer;
+}
+.container input[type=checkbox] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+.checkmark {
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: transparent;+
+    border: 2px solid white;
+    border-radius: 5px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+}
+.edit_goal_button{
+    position: absolute;
+    width: 4%;
+    bottom: 0%;
+    right: 0%;
+    display: none;
+}
+.edit_goal_button img{
+    width: 100%;
+    height: auto;
+}
+.goal_text_input{
+    width: 100%;
+    text-align: right;
+    display: none;
+}
+.goal_text_textarea{
+    width: 100%;
+    text-align: left;
+}
+.goal_text_guardar{
+    margin-right: 1%;
+    text-decoration: underline !important;
+    cursor: pointer;
+}
+.container input:checked ~ .checkmark {
+  background-color: transparent;
+}
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.goal_add span{
+    border-color: #606dbf;
+    font-size: 20px;
+    line-height: 100%;
+    text-align: center;
+    font-weight: 700;
+}
+/*
+ * Weekly
+ */
+/* Weekly - title */
+#goal_weekly{
+    padding-top: 1%;
+}
+#goal_weekly_header_text{
+    padding-left: 3%;
+    margin-top: auto;
+}
+/* Goals */
+#goal_weekly_text{
+    background-color: rgba(255, 255, 255, .2);
+    padding: 3%;
+    min-height: 200px;
+    margin-bottom: 10%;
+}
+.panel_2 {
+    padding: 0 18px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    margin-bottom: 30px;
+}
+.accordion:after {
+    content: '+'; /* Unicode character for "plus" sign (+) */
+    font-size: 20px;
+    color: white;
+    float: right;
+    margin-left: 5px;
+}
+
+.active:after {
+    content: '-'; /* Unicode character for "minus" sign (-) */
+}
+
+/* Media Queries */
+@media only screen and (max-width: 768px) {
+    .goal_title{
+        letter-spacing: 3px;
+        font-size: 4.6rem;
+        margin-bottom:2rem;
+    }
+    #goal_vision_header_edit{
+        height: 3.6rem;
+        margin-bottom: 2rem;
+    }
+    .goal_text{
+        font-size: 2.5vw;
+    }
+    .goal_add{
+        font-size: 2.5vw;
+    }
+    .goal_date{
+        font-size: 4vw;
+    }
+}

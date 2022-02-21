@@ -1,0 +1,112 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Application Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register all of the routes for an application.
+| It's a breeze. Simply tell Laravel the URIs it should respond to
+| and give it the controller to call when that URI is requested.
+|
+*/
+// route::GET('/test', 'IndexController@test')->name('IndexController.test');  //url para pruebas
+
+Route::GET('/', 'IndexController@index')->name('IndexController.index');
+Route::GET('/about', 'IndexController@about')->name('IndexController.about');
+Route::GET('/suscribe', 'IndexController@suscribe')->name('IndexController.suscribe');
+Route::POST('/suscribe', 'IndexController@suscribeCreate')->name('IndexController.suscribeCreate');
+Route::GET('/tankyou', 'IndexController@tankyou')->name('IndexController.tankyou');
+
+Route::POST('/suscribeNews', 'IndexController@suscribeNews')->name('IndexController.suscribeNews');
+
+Route::GET('/login', function(){  return view('auth.login');  });
+Route::GET('/register', function(){  return view('auth.register');  });
+
+Route::auth();
+
+Route::GET('/dashboard', 'HomeController@index')->middleware('auth');
+Route::GET('/sendRegConfirmMail', 'HomeController@sendRegConfirmMail')->name('home.sendRegConfirmMail');
+Route::GET('/accountVallidation/{id}/{code}', 'HomeController@accountVallidation')->name('home.accountVallidation');
+Route::GET('/logout', 'HomeController@logout');
+
+// Administración de Usuarios
+Route::GET('/Usuarios', 'UserController@index')->name('users.index');
+Route::GET('/Usuarios/buscar/secondItem/{secondItem}', 'UserController@findByRole');
+Route::GET('/Usuarios/buscar/nombre', 'UserController@search');
+Route::POST('/Usuarios/actualizar', 'UserController@actualizar');
+
+Route::POST('/Usuarios/crear', 'UserController@store');
+Route::delete('/Usuarios/borrar', 'UserController@destroy');
+Route::GET('/Usuarios/buscar/id', 'UserController@GETUserById');
+
+// Administración de Roles
+Route::GET('/Roles', 'RoleController@index')->name('roles.index');
+Route::GET('/Roles/buscar/secondItem/{secondItem}', 'RoleController@findByPermission');
+Route::GET('/Roles/buscar/nombre', 'RoleController@search');
+Route::POST('/Roles/actualizar', 'RoleController@actualizar');
+
+Route::POST('/Roles/crear', 'RoleController@store');
+Route::delete('/Roles/borrar', 'RoleController@destroy');
+Route::GET('/Roles/buscar/id', 'RoleController@GETRoleById');
+
+// Administración de Permisos
+Route::GET('/Permisos', 'PermissionController@index')->name('permissions.index');
+Route::GET('/Permisos/buscar/secondItem/{secondItem}', 'PermissionController@findByRole');
+Route::GET('/Permisos/buscar/nombre', 'PermissionController@search');
+Route::POST('/Permisos/actualizar', 'PermissionController@actualizar');
+
+Route::POST('/Permisos/crear', 'PermissionController@store');
+Route::delete('/Permisos/borrar', 'PermissionController@destroy');
+Route::GET('/Permisos/buscar/id', 'PermissionController@GETPermissionById');
+
+// Administración de Empresas
+Route::GET('/Empresa', 'CompanyController@index')->name('company.index');
+Route::GET('/Empresa/buscar/secondItem/{secondItem}', 'CompanyController@findByRole');
+Route::GET('/Empresa/buscar/nombre', 'CompanyController@search');
+Route::POST('/Empresa/actualizar', 'CompanyController@actualizar');
+
+Route::POST('/Empresa/crear', 'CompanyController@store');
+Route::delete('/Empresa/borrar', 'CompanyController@destroy');
+Route::GET('/Empresa/buscar/id', 'CompanyController@GETCompanyById');
+
+
+//--AdminController
+Route::GET('/blog', function(){      return redirect('/blog/categories');     });
+Route::GET('/blog/categories', 'AdminController@blogCategoriesIndex')->name('AdminController.blogCategoriesIndex');
+Route::POST('/blog/categories/POSTImg', 'AdminController@blogCategoriesPostImg')->name('AdminController.blogCategoriesPostImg');
+Route::POST('/blog/categories/create', 'AdminController@blogCategoriesCreate')->name('AdminController.blogCategoriesCreate');
+Route::POST('/blog/categories/update', 'AdminController@blogCategoriesUpdate')->name('AdminController.blogCategoriesUpdate');
+Route::POST('/blog/categories/toggle', 'AdminController@blogCategoriesToggle')->name('AdminController.blogCategoriesToggle');
+
+Route::GET('/blog/post/show/{theme}', 'AdminController@blogPostIndex')->name('AdminController.blogPostIndex');
+Route::GET('/blog/post/single/{id}', 'AdminController@blogPostSingle')->name('AdminController.blogPostSingle');
+Route::GET('/blog/post/create', 'AdminController@blogPostCreate')->name('AdminController.blogPostCreate');
+Route::POST('/blog/post/store', 'AdminController@blogPostStore')->name('AdminController.blogPostStore');
+Route::POST('/blog/post/toggle', 'AdminController@blogPostToggle')->name('AdminController.blogPostToggle');
+Route::GET('/blog/post/update/{id}', 'AdminController@blogPostUpdate')->name('AdminController.blogPostUpdate');
+Route::POST('/blog/like/toggle', 'AdminController@blogLikeToggle')->name('AdminController.blogLikeToggle');
+
+Route::GET('/resources', 'AdminController@resourcesIndex')->name('AdminController.resourcesIndex');
+Route::POST('/resources/resPostFile', 'AdminController@resPostFile')->name('AdminController.resPostFile');
+Route::POST('/resources/store', 'AdminController@resStore')->name('AdminController.resStore');
+Route::POST('/resources/update', 'AdminController@resUpdate')->name('AdminController.resUpdate');
+Route::POST('/resources/delete', 'AdminController@resDelete')->name('AdminController.resDelete');
+Route::POST('/resources/resDownPlus', 'AdminController@resDownPlus')->name('AdminController.resDownPlus');
+
+Route::GET('/perfil', 'AdminController@perfilIndex')->name('AdminController.perfilIndex');
+Route::POST('/perfil/upload', 'AdminController@perfilUploadFile')->name('AdminController.perfilUploadFile');
+Route::POST('/perfil/update', 'AdminController@perfilUpdate')->name('AdminController.perfilUpdate');
+
+
+//--ProvisionalController
+Route::GET('/provisional', 'ProvisionalController@index')->name('ProvisionalController.index');
+Route::POST('/provisional', 'ProvisionalController@store')->name('ProvisionalController.store');
+
+Auth::routes();
+
+Route::GET('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::GET('/home', 'HomeController@index')->name('home');

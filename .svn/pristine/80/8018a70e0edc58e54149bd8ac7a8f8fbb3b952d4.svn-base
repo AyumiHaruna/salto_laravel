@@ -1,0 +1,103 @@
+.mainContainer{
+    background-size: cover;
+    padding-bottom: 5%;
+    padding-top: 10%;
+}
+
+.alert-div{
+  background-color: #fff;
+  z-index: 9;
+  position: fixed;
+  top: 15%;
+  padding: 10px;
+  border-radius: 3px;
+  -webkit-box-shadow: 0px 2px 5px 0px rgba(122,122,122,1);
+  -moz-box-shadow: 0px 2px 5px 0px rgba(122,122,122,1);
+  box-shadow: 0px 2px 5px 0px rgba(122,122,122,1);
+  display:none;
+  text-align: center;
+}
+
+.titleContainer{
+    /* margin-top: 10%; */
+    font-family: "Avenir Medium";
+}
+.title{
+  color: #4262aa;
+  font-size: 3rem;
+  margin-bottom: 5%;
+}
+
+.btnBlock{
+  background-color: #fff;
+  border: 5px;
+  color: #6B6B6B;
+  margin-bottom: 10px;
+  -webkit-box-shadow: 0px 2px 5px 0px rgba(122,122,122,1);
+  -moz-box-shadow: 0px 2px 5px 0px rgba(122,122,122,1);
+  box-shadow: 0px 2px 5px 0px rgba(122,122,122,1);
+}
+.subBtnBlock{
+  cursor:pointer;
+}
+.infoPic{
+  padding: 15px;
+}
+.infoPic img{
+  width: 40%;
+}
+.infoName{
+  padding-top:35px;
+  padding-left: 20px;
+  font-size: 1.5em;
+}
+.infoContainer{
+  padding: 30px;
+  font-size: 1.2em;
+  background-color: #f5f5f5;
+}
+.infoContainer label{
+  font-weight: bold;
+}
+.avatar{
+  height: 100px;
+  width: auto;
+  border-radius: 50%;
+}
+
+.goalsContainer{
+  margin-top: 30px;
+}
+.goalTable{
+  font-size: 1rem;
+}
+.goalTable i{
+  color: #4262AA;
+}
+
+.formContainer{
+  background-color: #fff;
+  padding: 30px;
+}
+.formContainer label{
+  font-size: 1rem;
+  color: #4262AA;
+}
+.formContainer textarea{
+  border: none;
+  border-radius: 0px;
+  -webkit-box-shadow: 3px 3px 5px 0px rgba(209,209,209,1);
+  -moz-box-shadow: 3px 3px 5px 0px rgba(209,209,209,1);
+  box-shadow: 3px 3px 5px 0px rgba(209,209,209,1);
+}
+.save{
+    position: absolute;
+    top: 0;
+    right: 20px;
+    background-color: #fff;
+    border: none;
+    color: #4262AA;
+}
+.save:hover{
+  opacity: 0.6;
+}

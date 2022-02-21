@@ -1,0 +1,73 @@
+body{
+  font-size: 14px;
+}
+
+#mainContainer{
+  background-size: cover;
+}
+
+#block1-1{
+  margin-top: 10%;
+  font-family: "Avenir Book";
+  color: #fff;
+  font-size: 2.8em;
+  padding-bottom: 5%;
+}
+.spaceMsg{
+  letter-spacing: 5px;
+}
+.normalMsg{
+  padding-left: 10%;
+  font-size: 3.5rem;
+  line-height: 110%;
+}
+.normalMsg span, .normalMsg a{
+  font-family: "Avenir Black";
+  color: #fff;
+  font-weight: bold;
+}
+.normalMsg a{
+  text-decoration: underline;;
+}
+#renewPic{
+  width: 150px;
+}
+#counterDiv{
+  background: #7986fc;
+  background: linear-gradient(to right, #678efe, #7986fc);
+  margin-top: 2%;
+  font-family: "Avenir Black";
+  font-size: 1.5em;
+}
+.dateTag{
+  font-family: "Avenir Book";
+  font-size: 0.4em;
+  margin-top: -10px;
+}
+.button_container{
+  margin-top: 5%;
+  font-size: 2.5rem;
+  display: none;
+}
+.button_container button{
+  padding: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  background-color: #7986fc;
+}
+.button_container button:hover{
+  opacity:0.8;
+}
+
+
+
+#gameContainer{
+  width: 100% !important;
+  background-color: #41444B !important;
+}
+#gameContainer canvas{
+  width: 100% !important;
+}

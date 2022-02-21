@@ -1,0 +1,25 @@
+<div class="page-aside col-10 col-sm-10 col-md-4 col-lg-3 col-xl-2">
+    <div class="page-aside-section middle">
+        <a class="list-group-item" href="<?php echo e(env('PUBLIC_URL', 'http://localhost/public').'/'.$section->name); ?>">
+            <span class="item-right badge badge-info countNumber"><?php echo e(($mainItem) ? count($mainItem): 0); ?></span>
+            <p class="md-accounts-alt" aria-hidden="true" ><?php echo e($section->name); ?></p>
+        </a>
+    </div>
+    <div class="page-aside-section">
+        <h5 class="page-aside-title"><?php echo e($secondItemName); ?></h5>
+        <div class="list-group has-actions">
+            <?php if(isset($secondItem)): ?>
+                <?php $__currentLoopData = $secondItem; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="list-group-item">
+                        <a href="<?php echo e(env('PUBLIC_URL', 'http://localhost/public').'/'.$section->name.'/buscar/secondItem/'.$item->id); ?>">
+                            <div class="list-content">
+                                <span class="item-right text-primary"></span>
+                                <span class="list-text"><?php echo e($item->display_name); ?></span>
+                            </div>
+                        </a>
+                    </div>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>

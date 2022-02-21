@@ -1,0 +1,125 @@
+.middle > * {
+  vertical-align: middle;
+}
+#main_page{
+    background: white !important;
+}
+.page-aside{
+    padding-right: 0px;
+}
+.page-aside-section a.list-group-item{
+    text-align: left;
+    font-family:'Avenir Book';
+    font-size: 1.8em;
+    color: #AAAAAA !important;
+}
+
+.list-group-item span.countNumber{
+    float: right;
+    background-color: #10181F !important
+    
+}
+.list-group-item p{
+    margin-bottom: 0px !important;
+}
+.page-aside-title{
+    text-align: left;
+    font-family:'Avenir Heavy';
+    font-size: 2.3em;
+    color: #10181F !important;
+    margin-bottom: 4px;
+    margin-top: 4px;
+    margin-left: 5px;
+}
+.main_page-title{
+    text-align: left;
+    font-family:'Avenir Heavy';
+    font-size: 2.3em;
+    color: #10181F !important;
+}
+.page-aside, .page-aside .page-aside-inner{
+    background: #F5F8FF;
+}
+.list-group-item{
+    background: #F5F8FF;
+}
+.list-text{
+    text-align: left;
+    font-family:'Avenir Book';
+    font-size: 1.8em;
+    color: #AAAAAA !important;
+}
+#page-main{
+    margin-top: 10px;
+}
+.page-search-actions{
+    right: 30px;
+    margin: auto;
+    box-sizing: border-box;
+}
+.page-search-actions>* {
+    margin-bottom: 0;
+}
+
+#search{
+    text-align: left;
+    font-family:'Avenir Book';
+    font-size: 1.5vh;
+    color: #10181F !important
+}
+.page-header{
+    margin-bottom: 10px;
+}
+.site-action{
+    position: fixed;
+    right: 32px;
+    bottom: 55px;
+    z-index: 1290;
+    -webkit-animation-duration: 3s;
+    -o-animation-duration: 3s;
+}
+#garbage-button{
+    position: absolute;
+    top: -113%;
+    z-index: 0;
+    display: none;
+}
+#close_icon{
+    display: none;
+}
+.modal-header{
+    background-color: #4262aa !important;
+}
+.modal-title{
+    text-align: left;
+    font-family:'Avenir Medium';
+    font-size: 2vh;
+    color: white !important;
+    float: left;
+}
+.modal-header button.close{
+    margin: -1rem -1rem -1rem auto !important;
+}
+
+
+
+
+#overlayContainer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: #000;
+    opacity: 0.20;
+    filter: alpha(opacity =20);
+    z-index: 9999;
+}
+#loadingImage {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -28px 0 0 -25px;
+}

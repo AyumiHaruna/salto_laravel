@@ -1,0 +1,51 @@
+#mainContainer{
+    margin-top: 10%;
+    margin-bottom: 5%;
+    font-family: "Avenir Medium";
+}
+#title1{
+  color: #4262aa;
+  font-size: 5rem;
+  margin-bottom: -20px;
+}
+#title2{
+  color: #4262aa;
+  font-size: 3rem;
+  margin-left: 70px;
+}
+#formContainer{
+  font-family: "Avenir Medium";
+  color: #4262aa;
+  margin-top: 2%;
+  font-size: 1.5rem;
+}
+#formContainer label{
+  margin-bottom: 0px;
+  font-size: 1.2rem;
+}
+#formContainer input{
+  font-size: 1.5rem;
+  margin-bottom: 5%;
+  border-radius: 2px;
+  line-height: 2.5rem;
+  -webkit-box-shadow: 5px 5px 11px -7px rgba(56,56,56,1);
+  -moz-box-shadow: 5px 5px 11px -7px rgba(56,56,56,1);
+  box-shadow: 5px 5px 11px -7px rgba(56,56,56,1);
+}
+#formContainer button{
+  font-size: 1.4rem;
+  font-family: "Avenir Book";
+  padding: 8px;
+  margin-top: 10%;
+  background-color: #8784F8;
+  border: none;
+  -webkit-box-shadow: 5px 5px 11px -7px rgba(56,56,56,1);
+  -moz-box-shadow: 5px 5px 11px -7px rgba(56,56,56,1);
+  box-shadow: 5px 5px 11px -7px rgba(56,56,56,1);
+}
+#formContainer button:hover{
+  opacity: 0.8;
+}
+#formContainer a{
+  color: #fff;
+}

@@ -1,0 +1,72 @@
+.chat_client_window{
+  border: solid 1px red;
+}
+.chat_title{
+  background-color: #3399ff;
+  color: #fff;
+  height: 20px;
+  padding: 5px;
+}
+.chat_client_msgList_block{
+  padding: 0;
+  display: none;
+}
+.chat_client_msg_list{
+  height: 30vh;
+  overflow-y: auto;
+}
+.chat_left_msg{
+  width: 100%;
+  text-align: left;
+  background-color: #ffffcc;
+}
+.chat_right_msg{
+  width: 100%;
+  text-align: right;
+  background-color: #e6f7ff;
+}
+
+
+.chat_admin_title{
+  background-color: #3399ff;
+  color: #fff;
+  height: 20px;
+  padding: 5px;
+}
+.chat_admin_msgList_block{
+  padding: 0;
+}
+.chat_admin_msgList_block .title{
+  background-color: #ffffcc;
+  padding: 10px;
+}
+.chat_admin_msgList_block .title span{
+  position: absolute;
+  right: 10;
+  border-radius: 10%;
+  background-color: #000;
+  color: #fff;
+  padding: 5px;
+}
+
+.chat_admin_pendientes .title,
+.chat_admin_activas .title,
+.chat_admin_pendientes .list,
+.chat_admin_activas .list,
+.chat_admin_title .chat_admin_back_btn button,
+.chat_admin_title .chat_admin_upd_btn button,
+.chat_btn_close,
+.chat_admin_msgList_old_chats{
+  display:none;
+}
+.chat_admin_pendientes .showList,
+.chat_admin_activas .showList{
+  display:block;
+}
+
+.chat_admin_msgList_old_chats{
+  padding: 0;
+}
+.chat_admin_msgList_old_chats .old_chats_title{
+  background-color: #ffffcc;
+}

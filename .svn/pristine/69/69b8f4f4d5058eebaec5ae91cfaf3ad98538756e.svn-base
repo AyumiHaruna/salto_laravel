@@ -1,0 +1,298 @@
+$('#plus_icon').bind('contentOFF', function(){
+    $(this).show();
+    $('#close_icon').hide();
+    $('#garbage-button').fadeOut();
+});
+
+$('#plus_icon').bind('contentON', function(){
+    $(this).hide();
+    $('#close_icon').show();
+    $('#garbage-button').fadeIn();
+});
+
+$('.date').datetimepicker({
+    format: "Y-m-d H:i:s"
+});
+
+function checkCheckboxesChecked(){
+    var checkedCheckboxes = $('#page-content').find("input[type=checkbox]");
+    returnValue = false;
+    checkedCheckboxes.each(function(){
+        if($(this).prop('checked')){
+             returnValue = true;
+        }
+    });
+    return returnValue;
+}
+
+function triggerMenuChange(selector){
+    if(checkCheckboxesChecked()){
+        $(selector).trigger('contentON')
+    }else{
+        $(selector).trigger('contentOFF')
+    }
+}
+function turnAllCheck(status){
+    var checkedCheckboxes = $('#page-content').find("input[type=checkbox].checkbox-object");
+    var value = '';
+    if(status == 'on'){
+        value = true;
+    }else{
+        value = false;
+    }
+    
+    checkedCheckboxes.each(function(){
+        $(this).prop('checked', value);
+    });
+    triggerMenuChange('#plus_icon');
+}
+function deleteUsers()
+    {
+        var $roles = [];
+
+        $("input:checkbox[name=object]:checked").each(function(){
+            $roles.push($(this).val());
+        });
+
+        $.ajax({
+            headers : {'X-CSRF-TOKEN': token },
+            dataType: "json",
+            data    : { uids: $roles.join() },                   // Pass IDs array
+            url     : route_roles_destroy,
+            type    : 'delete',                       // Send a delete request
+
+            beforeSend: function () {
+            },
+
+            success: function (msg) {
+                alert(msg.message);
+                if(msg.code != 405)
+                {
+                    location.reload();
+                }
+            },
+
+            error: function (xhr, err) {
+                alert("Al parecer hubo un problema, inténtalo más tarde.");
+            }
+        });
+    }
+
+function hideEditForm(){
+    $('.editFormElement').hide();
+}
+function showEditdisplay(){
+    $('#editModalTitle').html('Detalles de Sesión');
+    $('#editSessionDisplayData').show();
+}
+function showEditSession(){
+    $('#editModalTitle').html('Editar Sesión');
+    $('#editsessionForm').show();
+}
+
+function showCancelSession(){
+    $('#editCancelSession').show();
+}
+
+function showAcceptSession(){
+    $('#editAcceptSession').show();
+}
+$('#editCancelSession').bind('click', function(){
+    var confirmResponse = confirm("Por favor confirma que quieres cancelar la sesión. Una vez cancelada, tendrás que generar una sesión nueva para reactivarla.");
+        if (confirmResponse == true) {
+        var uid = $('#editId').val();
+        $.ajax({
+            headers : {'X-CSRF-TOKEN': token },
+            dataType: "json",
+            data    : { uid: uid },
+            url     : route_roles_cancel,
+            type    : 'GET',
+
+            success: function (msg) {
+                if(msg.status == 200)
+                {
+                    alert("Has cancelado exitosamente tu sesión. Si quieres reactivarla, tendrás que generar una sesión nueva.");
+                    location.reload();
+                }
+            },
+
+            error: function (xhr, err) {
+               
+            }
+        });
+    } else {
+        
+    }
+});
+$('#editDeletetSession').bind('click', function(){
+    var confirmResponse = confirm("Por favor confirma que quieres eliminar el horario de disponibilidad.");
+        if (confirmResponse == true) {
+        var uid = $('#editId').val();
+        $.ajax({
+            headers : {'X-CSRF-TOKEN': token },
+            dataType: "json",
+            data    : { uid: uid },
+            url     : route_roles_destroy,
+            type    : 'GET',
+
+            success: function (msg) {
+                if(msg.status == 200)
+                {
+                    alert("Has eliminado exitosamente tu sesión.");
+                    location.reload();
+                }
+            },
+
+            error: function (xhr, err) {
+               
+            }
+        });
+    } else {
+        
+    }
+});
+$('#editAcceptSession').bind('click', function(){
+    var confirmResponse = confirm("Por favor confirma que quieres confirmar la sesión.");
+        if (confirmResponse == true) {
+        var uid = $('#editId').val();
+        $.ajax({
+            headers : {'X-CSRF-TOKEN': token },
+            dataType: "json",
+            data    : { uid: uid },
+            url     : route_roles_accept,
+            type    : 'GET',
+
+            success: function (msg) {
+                if(msg.status == 200)
+                {
+                    alert("Has cancelado exitosamente tu sesión. Si quieres reactivarla, tendrás que generar una sesión nueva.");
+                    location.reload();
+                }
+            },
+
+            error: function (xhr, err) {
+               
+            }
+        });
+    } else {
+        
+    }
+});
+function showCalendarEditModal(id, status, role){
+    var uid = id;
+    if($('.alert').length > 0){
+        $('.alert').remove();
+    }
+    hideEditForm();
+    if(role == 1){
+        showEditdisplay();
+    }else{
+        switch(status){
+            case "0": // Agendado
+                if(role != 4){
+                    showEditSession();
+                }else{
+                    showAcceptSession();
+                    showEditdisplay();
+                }
+                showCancelSession();
+                break;
+            case "1": // Confirmado
+                showCancelSession();
+                showEditdisplay();
+                break;
+            case "2": // Cancelado
+            case "3": // Atendido
+            case "4": // No Atendido
+                showEditdisplay();
+                break;
+            case "5": // Disponibilidad de Coach
+                if(role == 4){
+                    showEditSession(); //Falta agregar el botón para borrar
+                    $('#editModalTitle').html('Editar Disponibilidad');
+                }else{
+                   showEditdisplay(); 
+                }
+                break;
+        }
+    }
+
+    $('#editId').val('');
+    $('#editName').val('');
+    $('#editDescription').html('');
+    $('#editStartDate').val('');
+    $('#editEndDate').val('');
+
+    $('#editLabelName span').html('');
+    $('#editLabelDescription span').html('');
+    $('#editLabelCoach span').html('');
+    $('#editLabelCoachee span').html('');
+    $('#editLabelStatus span').html('');
+    $('#editLabelDatetime span').html('');
+    $('#editLabelDuration span').html('');
+    $('#editLabelVideoURL span').html('');
+
+    $('#editCoach').multiSelect('deselect_all');
+
+    $.ajax({
+        headers : {'X-CSRF-TOKEN': token },
+        dataType: "json",
+        data    : { uid: uid },
+        url     : route_sessions_get_session,
+        type    : 'GET',
+
+        success: function (msg) {
+            $('#overlayContainer').remove();
+            $('#overlayContainer').fadeOut();
+
+            if(msg.status == 200)
+            {
+                var categories = [];
+                var $sessions = [];
+
+                $('#editId').val(msg.session.id);
+                $('#editName').val(msg.session.name);
+                $('#editDescription').html(msg.session.description);
+                $('#editStartDate').val(msg.session.start_datetime);
+                $('#editEndDate').val(msg.session.end_datetime);
+
+                $('#editLabelName span').html(msg.session.name);
+                $('#editLabelDescription span').html(msg.session.description);
+                $('#editLabelCoach span').html(msg.session.coach_id);
+                $('#editLabelCoachee span').html(msg.session.coachee_id);
+                $('#editLabelStatus span').html(msg.session.status);
+                $('#editLabelDatetime span').html(msg.session.start_datetime);
+                if(status == 4){
+                    $('.sessionCompletedField').show();
+                    $('#editLabelDuration span').html(msg.session.duration);
+                    $('#editLabelVideoURL span').html(msg.session.url);
+                }else{
+                    $('.sessionCompletedField').hide();
+                }
+            }
+        },
+
+        error: function (xhr, err) {
+            $('#overlayContainer').remove();
+            $('#overlayContainer').fadeOut();
+            $('#editSessionModal').modal('hide');
+
+          /*  alertify.theme('bootstrap');
+            // confirm dialog
+            alertify.alert('Al parecer hubo un problema, inténtalo de nuevo.');*/
+        }
+    });
+    $('#editSessionModal').modal('show');
+}
+$('#plus_icon').bind('click', function(){
+     $('#addSessionModal').modal('show');
+ });
+$('#report-button').bind('click', function(){
+});
+$( "#submitAddSessionForm" ).click(function() {
+        $( "#addSessionForm" ).submit();
+});
+$( "#submitEditSessionForm" ).click(function() {
+        $( "#editsessionForm" ).submit();
+});
+

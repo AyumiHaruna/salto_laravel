@@ -1,0 +1,512 @@
+@extends('layouts.mainLayout')
+
+
+  @section('title') {{ $section->display_name }} @endsection
+
+  @section('extraheader')
+    <link rel='stylesheet' href='{{asset("css/calendar/fullcalendar.min.css")}}' />
+    <!-- <link rel="stylesheet" href="{{env('PUBLIC_URL', 'http://localhost/public').'/css/calendar.css'}}"> -->
+    <link rel="stylesheet" href="{{env('PUBLIC_URL', 'http://localhost/public').'/css/material/material-design.min.css'}}">
+    <link rel="stylesheet" href="{{env('PUBLIC_URL', 'http://localhost/public').'/css/bootstrap/bootstrap-extend.min.css'}}">
+  @endsection
+
+
+
+
+
+  @section('content')
+  <!-- Page -->
+    <div id="main_container" class="row">
+        <div id="calendar_main_content" class="col-10" style="margin-left: 8%;margin-top: 2%;">
+            <h3>Calendar</h3>
+            <div id='calendar'></div>
+        </div>
+
+        <div class="col-md-6 offset-md-6 text-right">
+          <label for="watchCoach">Ver Sesiones del coach: </label>
+          <select class="" name="watchCoach" id="watchCoach">
+            <option value="0">Todos</option>
+            @FOREACH($coaches as $coach)
+              <option value="{{ $coach->id }}"
+                @IF( ISSET($_GET['id']) )
+                  {{ (($_GET['id'] == $coach->id )? 'SELECTED' : '') }}
+                @ENDIF
+              >
+                  {{ $coach->name }} {{ $coach->last_name }}
+              </option>
+            @ENDFOREACH
+          </select>
+          <button type="button" name="watchCoachBtn" id="watchCoachBtn"> <i class="fas fa-search fa-lg"></i> </button>
+        </div>
+    </div>
+
+    <!-- Site Action -->
+    <div class="site-action">
+        @if(Session('role') == '4')
+          <button id="coachConfig-button" type="button" class="btn-raised btn btn-floating" style="background-color: white;outline: none;border-color: transparent;color:#4262aa;">
+              <i class="fas fa-cog"></i>
+          </button><br>
+        @endif
+        <button id="addUser-button" type="button" class="btn-raised btn btn-floating" style="background-color: white;outline: none;border-color: transparent;color:#4262aa;">
+            <i id="plus_icon" class="front-icon md-plus animation-scale-up" aria-hidden="true"></i>
+        </button>
+        <?php if(Session('role') == '1'){ ?>
+        <div id="report-button" class="site-action-buttons">
+                <button type="button" data-action="trash" class="btn-raised btn btn-success btn-floating animation-slide-bottom">
+                <i class="icon md-assignment" aria-hidden="true"></i>
+            </button>
+        </div>
+        <?php } ?>
+    </div>
+    <!-- End Site Action -->
+    <!-- Add Task Form -->
+
+    <!-- coach config form -->
+    <div class="modal modal-primary fade" id="addCoachConfig" aria-hidden="true" aria-labelledby="addCoachConfig"
+         role="dialog" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Configurar disponibilidad de sesiones</h4>
+                    <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
+                </div>
+                @if (count($errors->addCoachConfigForm) > 0)
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <ul>
+                        @foreach ($errors->addCoachConfigForm->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                        </ul>
+                    </div>
+                @endif
+                {{--@include('common.errors')--}}
+                <div class="modal-body">
+                     <form action="{{route('Calendario.config')}}" id="addCoachConfigForm" method="post">
+                        {{ csrf_field() }}
+                        <div class="form-group">
+                              <input type="text" class="form-control {{ ($errors->userForm->has('name')) ? 'focus' : '' }}" name="name" placeholder="Nombre de las sesiones" value="{{ old('name') }}" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;"/ required>
+                        </div>
+                        <div class="form-group">
+                              <textarea class="form-control {{ ($errors->userForm->has('description')) ? 'focus' : '' }}" name="description" placeholder="Descripción de las sesiones" value="{{ old('description') }}" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;"/></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="start_date">Periodo</label>
+                            <input type="text" class="form-control date {{ ($errors->userForm->has('start_date')) ? 'focus' : '' }}" name="start_date" placeholder="Fecha de inicio" value="{{ old('start_date') }}" autocomplete="off" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;"/ required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control date {{ ($errors->userForm->has('end_date')) ? 'focus' : '' }}" name="end_date" placeholder="Fecha de término" value="{{ old('end_date') }}"  autocomplete="off" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;"/ required>
+                        </div>
+                        <div class="form-group">
+                          <label for="start_time">Horario</label>
+                            <input type="text" class="form-control hour {{ ($errors->userForm->has('start_time')) ? 'focus' : '' }}" name="start_time" placeholder="De" value="{{ old('start_time') }}"  autocomplete="off" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;"/ required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control hour {{ ($errors->userForm->has('end_time')) ? 'focus' : '' }}" name="end_time" placeholder="a" value="{{ old('end_time') }}"  autocomplete="off" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;"/ required>
+                        </div>
+
+                        <div class="form-group text-center">
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" id="w_day0" value="0" name="w_days[]" {{ (is_array(old('w_days')) && in_array(0, old('w_days')))? 'checked' : ''}} > Dom
+                            </label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" id="w_day1" value="1" name="w_days[]" {{ (is_array(old('w_days')) && in_array(1, old('w_days')))? 'checked' : ''}}> Lun
+                            </label>
+                          </div>
+                          <div class="form-check form-check-inline disabled">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" id="w_day2" value="2" name="w_days[]" {{ (is_array(old('w_days')) && in_array(2, old('w_days')))? 'checked' : ''}}> Mar
+                            </label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" id="w_day3" value="3" name="w_days[]" {{ (is_array(old('w_days')) && in_array(3, old('w_days')))? 'checked' : ''}}> Mie
+                            </label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" id="w_day4" value="4" name="w_days[]" {{ (is_array(old('w_days')) && in_array(4, old('w_days')))? 'checked' : ''}}> Jue
+                            </label>
+                          </div>
+                          <div class="form-check form-check-inline disabled">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" id="w_day5" value="5" name="w_days[]" {{ (is_array(old('w_days')) && in_array(5, old('w_days')))? 'checked' : ''}}> Vie
+                            </label>
+                          </div>
+                          <div class="form-check form-check-inline disabled">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" id="w_day6" value="6" name="w_days[]" {{ (is_array(old('w_days')) && in_array(6, old('w_days')))? 'checked' : ''}}> Sab
+                            </label>
+                          </div>
+                        </div>
+                    </form>
+
+                    @IF($coach_config != null)
+                      <div class="row">
+                        <div class="col-md-12" style="border: solid 1px;">
+                          <span style="font-weight: bold"> Última configuración guardada: </span> <br>
+                          <label>Fecha inicial: </label> &nbsp; {{ $coach_config['start_date'] }} <br>
+                          <label>Fecha de término: </label> &nbsp; {{ $coach_config['end_date'] }} <br>
+                          <label>Horario: </label> &nbsp; De {{ substr($coach_config['start_time'], 0, 5) }} a {{ substr($coach_config['end_time'], 0, 5) }} <br>
+                          <label>Días: </label> &nbsp; @FOR($x = 0; $x < strlen( $coach_config['w_days'] ); $x++)
+                                                  @IF( $coach_config['w_days'][$x] == 1 )
+                                                    @switch($x)
+                                                      @case(0)
+                                                            Dom /
+                                                      @break
+
+                                                      @case(1)
+                                                          Lun /
+                                                      @break
+
+                                                      @case(2)
+                                                          Mar /
+                                                      @break
+
+                                                      @case(3)
+                                                          Mie /
+                                                      @break
+
+                                                      @case(4)
+                                                          Jue /
+                                                      @break
+
+                                                      @case(5)
+                                                          Vie /
+                                                      @break
+
+                                                      @case(6)
+                                                          Sab /
+                                                      @break
+                                                  @endswitch
+                                                  @ENDIF
+                                                @ENDFOR
+                        </div>
+                      </div>
+                    @ENDIF
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" id="submitaddCoachConfig" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;background-color: #D49000 !important; border-color: #D49000 !important">Guardar</button>
+                    <a class="btn btn-sm btn-white btn-pure" data-dismiss="modal" href="javascript:void(0)" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;border-color: #AAAAAA !important; color: #AAAAAA !important">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- add session form -->
+    <div class="modal modal-primary fade" id="addSessionModal" aria-hidden="true" aria-labelledby="addSessionModal"
+         role="dialog" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><?php
+                        switch(Session('role')){
+                            case '4':
+                                echo 'Agregar disponibilidad';
+                                break;
+                            default:
+                                echo 'Solicitar Sesión';
+                        } ?></h4>
+                    <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
+                </div>
+                @if (count($errors->addsessionForm) > 0)
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <ul>
+                        @foreach ($errors->addsessionForm->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                        </ul>
+                    </div>
+                @endif
+                {{--@include('common.errors')--}}
+                <div class="modal-body">
+                    <form action="{{route('Calendario.store')}}" id="addSessionForm" method="post">
+                        {{ csrf_field() }}
+                        @IF(Session('role') != '4')
+                          <div class="form-group">
+                              <input type="text" class="form-control {{ ($errors->userForm->has('name')) ? 'focus' : '' }}" name="name" placeholder="Nombre de Sesión" value="{{ old('name') }}" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;"/>
+                          </div>
+                          <div class="form-group">
+                              <textarea type="text" class="form-control {{ ($errors->roleForm->has('description')) ? 'focus' : '' }}" name="description" placeholder="Descripción" cols="40" rows="5" value="{{ old('description') }}" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;">{{ old('description') }}</textarea>
+                          </div>
+                          <div class="form-group">
+                              Coach:<br />
+                              <select name="coach_id" data-plugin="selectpicker" data-noneSelectedText="Ninguno">
+                                  @if(isset($coaches))
+                                      @foreach($coaches as $index => $coach)
+                                          <option value="{{ $coach->id }}" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;" >{{ $coach->name.' '.$coach->last_name }}</option>
+                                      @endforeach
+                                  @endif
+                              </select>
+                          </div>
+                          <input type="hidden" name="coachee_id" value="{{Session('user')->id}}" />
+                        @ELSE
+                          <input type="hidden" name="coach_id" value="{{Session('user')->id}}" />
+                          <input type="hidden" name="coachee_id" value="0" />
+                          <input type="hidden" name="name" value="{{Session('user')->name.' '.Session('user')->last_name}} está disponible." />
+                          <input type="hidden" name="description" value="{{Session('user')->name.' '.Session('user')->last_name}} está disponible en este periodo. Puedes agendar una cita." />
+                        @ENDIF
+                            Fecha y hora de la sesión:
+                            <br />
+                        <input type="text" id="AddStartDatetime" name="start_datetime" class="dateTime" value="{{ old('start_datetime') }}" autocomplete="off" />
+                            <br /><br />
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" id="submitAddSessionForm" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;background-color: #D49000 !important; border-color: #D49000 !important">Guardar</button>
+                    <a class="btn btn-sm btn-white btn-pure" data-dismiss="modal" href="javascript:void(0)" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;border-color: #AAAAAA !important; color: #AAAAAA !important">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Task Form -->
+    <div class="modal modal-primary fade" id="editSessionModal" aria-hidden="true" aria-labelledby="editSessionModal"
+         role="dialog" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="editModalTitle" class="modal-title"></h4>
+                    <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
+                </div>
+                @if (count($errors->editsessionForm) > 0)
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <ul>
+                        @foreach ($errors->editsessionForm->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                        </ul>
+                    </div>
+                @endif
+                {{--@include('common.errors')--}}
+                <div class="modal-body">
+                    <!-- Start Details Display -->
+                    <div id="editSessionDisplayData" class="editFormElement">
+                        <div class="form-group">
+                            <p id="editLabelName" class="editFormLabel">Nombre de Sesión: <span></span></p>
+                        </div>
+                        <div class="form-group">
+                            <p id="editLabelDescription" class="editFormLabel">Descripción: <span></span></p>
+                        </div>
+                        <div class="form-group">
+                            <p id="editLabelCoach" class="editFormLabel">Coach: <span></span></p>
+                        </div>
+                        <div class="form-group">
+                            <p id="editLabelCoachee" class="editFormLabel">Coachee: <span></span></p>
+                        </div>
+                        <div class="form-group">
+                            <p id="editLabelStatus" class="editFormLabel">Status: <span></span></p>
+                        </div>
+                        <div class="form-group">
+                            <p id="editLabelDatetime" class="editFormLabel">Fecha y Hora: <span></span></p>
+                        </div>
+                        <div class="form-group">
+                            <p id="editLabelDuration" class="editFormLabel sessionCompletedField">Duración: <span></span></p>
+                        </div>
+                        <div class="form-group">
+                            <p id="editLabelVideoURL" class="editFormLabel sessionCompletedField">Video: <span></span></p>
+                        </div>
+                    </div>
+                    <!-- End Details Display -->
+                    <!-- Start Edit Form -->
+                    <form id="editsessionForm" action="{{route('Calendario.edit')}}" method="post" class="editFormElement">
+                        {{ csrf_field() }}
+
+                        <input id="ediStatus" type="hidden" name="status" value="{{ old('status') }}" />
+                        <input id="ediRole" type="hidden" name="ediRole" value="{{ Session('role') }}">
+
+                        <div class="form-group">
+                            <input id="editName" type="text" class="form-control {{ ($errors->editsessionForm->has('name')) ? 'focus' : '' }}" name="name" placeholder="Nombre de Sesión" value="{{ old('name') }}" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;"/>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="editDescription" type="text" class="form-control {{ ($errors->editsessionForm->has('description')) ? 'focus' : '' }}" name="description" placeholder="Descripción" cols="40" rows="5" value="{{ old('description') }}" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;"></textarea>
+                        </div>
+
+                        @IF(Session('role') != '4')
+                            <div class="form-group">
+                                Coach:<br />
+                                <select id="editCoach" name="coach_id" data-plugin="selectpicker" data-noneSelectedText="Ninguno">
+                                    @if(isset($coaches))
+                                        @foreach($coaches as $index => $coach)
+                                            <option value="{{ $coach->id }}" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;"  @if(old('coach_id') == $coach->id) selected @endif >{{ $coach->name.' '.$coach->last_name }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
+                            <input type="hidden" name="coachee_id" value="{{Session('user')->id}}" />
+
+                        @ELSE
+                            <input type="hidden" name="coach_id" value="{{Session('user')->id}}" />
+                            <input type="hidden" name="coachee_id" value="0" />
+                            <!-- <input type="hidden" name="name" value="{{Session('user')->name.' '.Session('user')->last_name}} está disponible." />
+                            <input type="hidden" name="description" value="{{Session('user')->name.' '.Session('user')->last_name}} está disponible en este periodo. Puedes agendar una cita." /> -->
+                        @ENDIF
+
+                        Fecha de Inicio:
+                        <br />
+                        <input id="editStartDate" type="text" name="start_datetime" class="dateTime" autocomplete="off" />
+                        <br /><br />
+                        <!-- Fecha Final:
+                        <br /> -->
+                        <input id="editEndDate" type="hidden" name="end_datetime" class="dateTime" autocomplete="off" />
+                        <br /><br />
+                        <input id="editId" type="hidden" name="id" value="{{old('id')}}" />
+
+                        @IF(Session('role') == '4')
+
+                            <div id="editDeletetSession">
+                                <a class="btn btn-sm btn-white btn-pure" href="javascript:void(0)" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;border-color: #AAAAAA !important;color: #ececec !important;background-color: #c11818;">
+                                  Eliminar disponibilidad
+                                </a>
+                            </div>
+
+                        @ENDIF
+                    </form>
+                    <!-- End Edit Form -->
+                    <!-- Start Accept Session -->
+                    <div id="editAcceptSession" class="editFormElement">
+                        <a class="btn btn-sm btn-white btn-pure" href="javascript:void(0)" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;border-color: #AAAAAA !important;color: #e8e8e8 !important;background-color: #0f9a2f;">Aceptar Sesión</a>
+                    </div>
+                    <!-- End Accept Session -->
+                    <!-- Start Cancel Session -->
+                    <div id="editCancelSession" class="editFormElement">
+                        <a class="btn btn-sm btn-white btn-pure" href="javascript:void(0)" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;border-color: #AAAAAA !important;color: #ececec !important;background-color: #c11818;">Cancelar Sesión</a>
+                    </div>
+                    <!-- End Cancel Session -->
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary editFormElement" type="button" id="submitEditSessionForm" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;background-color: #D49000 !important; border-color: #D49000 !important"> {{ ((Session('role') == '4')? 'Guardar' : 'Agendar' ) }}</button>
+                    <a class="btn btn-sm btn-white btn-pure" data-dismiss="modal" href="javascript:void(0)" style="font-family:'AvenirLTStd-Light';font-size: 1.5vh;border-color: #AAAAAA !important; color: #AAAAAA !important">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Edit Task Form -->
+  @endsection
+
+
+
+
+@section('jqueryScripts')
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js'></script>
+    <script src="{{ asset('js/jquery.multi-select.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('js/vendor/jquery.datetimepicker.min.css') }}" / >
+    <script src="{{ asset('js/vendor/jquery.datetimepicker.full.js') }}"></script>
+    <script src="{{ asset('js/mainFunctions.js') }}"></script>
+    <script src="{{ asset('js/calendar.js') }}"></script>
+
+    <script>
+        var route_roles_cancel = "{{env('PUBLIC_URL', 'http://localhost/public').'/Calendario/cancelar/id'}}";
+        var route_roles_destroy = "{{env('PUBLIC_URL', 'http://localhost/public').'/Calendario/eliminar/id'}}";
+        var route_roles_accept = "{{env('PUBLIC_URL', 'http://localhost/public').'/Calendario/confirmar/id'}}";
+        var route_sessions_get_session = "{{env('PUBLIC_URL', 'http://localhost/public').'/Calendario/buscar/id'}}";
+        var route_main = "{{ url('/Calendario') }}";
+
+        var token = '{{ csrf_token() }}';
+        $(document).ready(function() {
+            // page is now ready, initialize the calendar...
+            $('#calendar').fullCalendar({
+                // put your options and callbacks here
+                defaultView: 'month',
+                timezone: 'America/Mexico_City',
+
+                events : [
+                    @foreach($sessions as $session)
+                    {
+                        id: '{{ $session->id }}',
+                        status: '{{$session->status}}',
+                        title : '{{ $session->name }}',
+                        start : '{{ $session->start_datetime }}',
+                        end : '{{ $session->end_datetime }}',
+                        color: <?php switch($session->status){
+                                        case 0: // Agendado
+                                            echo '"#3a87ad"';
+                                            break;
+                                        case 1: // Confirmado
+                                            echo '"#247732"';
+                                            break;
+                                        case 2: // Cancelado
+                                            echo '"#b11920"';
+                                            break;
+                                        case 3: // Atendido
+                                            echo '"#55ade0"';
+                                            break;
+                                        case 4: // No Atendido
+                                            echo '"#ab7017"';
+                                            break;
+                                        case 5: // Dsiponible (Coach)
+                                            echo '"#b3b3b3"';
+                                            break;
+                                        default:
+
+                        } ?>,
+
+                    },
+                    @endforeach
+                    @if($sessions2 != null)
+                        @foreach($sessions2 as $session)
+                        {
+                            id: '{{ $session->id }}',
+                            status: '{{$session->status}}',
+                            title : '{{ $session->name }}',
+                            start : '{{ $session->start_datetime }}',
+                            end : '{{ $session->end_datetime }}',
+                            color: <?php switch($session->status){
+                                            case 0: // Agendado
+                                                echo '"#3a87ad"';
+                                                break;
+                                            case 1: // Confirmado
+                                                echo '"#247732"';
+                                                break;
+                                            case 2: // Cancelado
+                                                echo '"#b11920"';
+                                                break;
+                                            case 3: // Atendido
+                                                echo '"#55ade0"';
+                                                break;
+                                            case 4: // No Atendido
+                                                echo '"#ab7017"';
+                                                break;
+                                            case 5: // Dsiponible (Coach)
+                                                echo '"#b3b3b3"';
+                                                break;
+                                            default:
+
+                            } ?>,
+
+                        },
+                        @endforeach
+                    @endif
+                ],
+
+                eventClick: function(calEvent, jsEvent, view){
+                    showCalendarEditModal(calEvent.id, calEvent.status, {{ Session('role') }});
+                    console.log( calEvent );
+                    // console.log( calEvent['start']['_d'] );
+                    // console.log( (calEvent['start']['_d']).getDay() );
+                }
+            })
+
+            @IF (count($errors->addCoachConfigForm) > 0)
+                $('#addCoachConfig').modal('show');
+            @ENDIF
+
+            @IF (count($errors->addsessionForm) > 0)
+                $('#addSessionModal').modal('show');
+            @ENDIF
+
+            @IF (count($errors->editsessionForm) > 0)
+                $('#editSessionModal').modal('show');
+            @ENDIF
+
+        });
+    </script>
+@endsection

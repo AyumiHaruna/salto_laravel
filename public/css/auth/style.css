@@ -1,0 +1,176 @@
+.title-block{
+  display:none;
+}
+#mainContainer{
+    font-family: "Avenir Medium";
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 15%;
+    padding-bottom: 5%;
+}
+#formContainer{
+  font-family: "Avenir Medium";
+  color: #4262aa;
+  margin-top: 2%;
+  font-size: 1em;
+}
+#formContainer label{
+  margin-bottom: 0px;
+  font-size: 1.2em;
+}
+.block_password_forgot{
+  margin-top: 2%;
+  font-family: "Avenir Medium";
+}
+.block_password_forgot a{
+  font-size: 1.5em;
+}
+.input-group{
+  background-color: #fff;
+  margin-bottom: 2%;
+  border:none;
+  border-radius: 2px;
+}
+.input-group-text{
+  padding: 5px 10px;
+  width: 5vw;
+  height: 4.4vw;
+  background-color: #fff;
+  box-shadow: none;
+  border:none;
+}
+.input-group-text img {
+  width: auto;
+  height: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+#formContainer input{
+  font-size: 1.3em;
+  border-radius: 2px;
+  line-height: 2.5em;
+  -webkit-box-shadow: 5px 5px 11px -7px rgba(56,56,56,1);
+  -moz-box-shadow: 5px 5px 11px -7px rgba(56,56,56,1);
+  box-shadow: 5px 5px 11px -7px rgba(56,56,56,1);
+  border:none;
+  background-color: #fff;
+  font-family: "Avenir Medium";
+}
+#formContainer button{
+  font-size: 1.4em;
+  font-family: "Avenir Medium";
+  padding: 20px 20px;
+  margin-top: 10%;
+  background-color:transparent;
+  border: none;
+  color: #fff;
+  letter-spacing: 1.2px;
+}
+#formContainer button:hover{
+  opacity: 0.8;
+}
+#formContainer a{
+  color: #fff;
+}
+.btn_submit{
+  background-size: 100% 100%
+}
+::placeholder {
+    color: #e4e5e7;
+    opacity: 1; /* Firefox */
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color: #e4e5e7;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+   color: #e4e5e7;
+}
+
+
+.plain_title{
+  font-size: 1.5em;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 10%;
+}
+
+@media (max-width: 1200px) {
+  .plain_title,
+  .block_password_forgot,
+  #formContainer input{
+    font-size: 1.2em;
+  }
+}
+@media (max-width: 980.5px) {
+  .input-group-text{
+    height: 4.7vw;
+  }
+  .block_password_forgot{
+    font-size: 1em;
+  }
+}
+@media (max-width: 767.5px) {
+  #mainContainer{
+    padding: 20% 20% 10% 20%;
+  }
+  .plain_title,
+  .block_password_forgot,
+  #formContainer input{
+    font-size: 1.5em;
+  }
+  .input-group-text{
+    height: 5.7vw;
+    width: 8vw;
+  }
+  .input-group-text img {
+    height: 90%;
+  }
+}
+@media (max-width: 575.5px) {
+    #mainContainer{
+      padding: 20% 10% 10% 10%;
+    }
+    .plain_title,
+    .block_password_forgot,
+    #formContainer input{
+      font-size: 2em;
+    }
+    .block_password_forgot{
+      margin-top:10%;
+    }
+    .input-group-text{
+      height: 7.2vw;
+      width: 10vw;
+    }
+    .input-group-text img {
+      height: 90%;
+    }
+    #formContainer button{
+      font-size: 2em;
+    }
+}
+@media (max-width: 481.5px) {
+    #mainContainer{
+      padding: 30% 5% 10% 5%;
+    }
+    .plain_title,
+    .block_password_forgot,
+    #formContainer input{
+      font-size: 1.8em;
+    }
+    .block_password_forgot{
+      margin-top:10%;
+      font-size: 1.5em;
+    }
+    .input-group-text{
+      height: 13.2vw;
+      width: 15vw;
+    }
+    .input-group-text img {
+      height: 70%;
+    }
+    #formContainer button{
+      font-size: 2em;
+    }
+}

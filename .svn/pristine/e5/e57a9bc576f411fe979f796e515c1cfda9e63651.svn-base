@@ -1,0 +1,28 @@
+  <?php $__env->startSection('title'); ?> Dashboard - <?php echo e(Session('role_name')); ?> <?php $__env->stopSection(); ?>
+
+
+
+
+  <?php echo $__env->make('partials._menu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+
+
+  <?php $__env->startSection('content'); ?>
+<br><br><br><br><br><br><br><br><br><br>
+      <h2>Welcome to SALTUM Dashboard</h2>
+
+      Session-role:  <?php echo e(Session('role')); ?>
+
+
+      <br><br>
+
+      alerts: <?php echo e($alert); ?>
+
+
+  <?php $__env->stopSection(); ?>
+
+
+
+
+
+<?php echo $__env->make('layouts.mainLayout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,153 @@
+#mainContainer{
+  padding-top: 10%;
+  margin-bottom: 5%;
+}
+.miniLogo{
+  text-align: center;
+}
+.postTheme, .sectionTitle{
+  margin-top: 3%;
+  text-align: center;
+  font-family: "Avenir Black";
+  margin-bottom: 5%;
+}
+#newCategorie{
+  font-size: 1.3em;
+  border-radius: 0px;
+  padding: 15px;
+  margin-bottom: 2%;
+}
+.transparencyBG{
+  background-color: rgb(0,0,0, 0.4);
+  height: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 9;
+  display:none;
+}
+.hoverBlock{
+  z-index: 10;
+  position:fixed;
+  top: 20%;
+  display:none;
+}
+.hoverForm{
+  background-color: #fff;
+  padding: 15px;
+}
+.formTitle{
+  margin-bottom: 10px;
+  font-family: "Avenir Black";
+}
+.closeFormBtn{
+  color: red;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+#imgPreview{
+  width: 100px;
+}
+.formBlock{
+  margin-bottom:3%;
+}
+
+
+/* Blog Categorie Section --------------------------*/
+.blogBlock{
+  padding-left: 2%;
+  padding-right: 2%;
+}
+.blogImg{
+    width: 100%;
+    height: 200px;
+}
+.blogTitle{
+  text-align: center;
+  padding: 15px;
+  font-size: 1.5em;
+  background-color: #f2f2f2;
+  color: #333;
+}
+.blogDate{
+  color: #7f7f7f;
+  font-size: 1.3em;
+}
+.blogSquare button{
+  font-size: 1.2em;
+  border-radius: 0px;
+  padding: 15px;
+}
+
+
+
+/* Blog Post Show Section --------------------------*/
+.postContainer{
+  font-size: 1.5em;
+}
+.postContainer #postDate{
+  color: #7f7f7f;
+  font-size: 1em;
+  margin-bottom: 2%;
+}
+.postContainer #imgPost{
+  width: 100%;
+}
+.postContainer #title{
+  font-family: "Avenir Black";
+  font-size: 2em;
+}
+.postContainer .catBtn{
+  background-color: #fff;
+  color: #7f7f7f;
+  font-size: 1em;
+}
+.postContainer #postMsj{
+  margin-top: 3%;
+}
+.postContainer #likeBtn{
+  background-color: #fff;
+  cursor: pointer;
+  color: #7f7f7f;
+}.postContainer #likeBtn:hover{
+  background-color: #fff;
+  cursor: pointer;
+  color: #005cff;
+}
+.postContainer .iColor{
+  color: #005cff !important;
+}
+.postContainer .likeBlock{
+  margin-bottom: 5%;
+}
+
+
+
+
+
+
+.agendarCita{
+  display: inline-block;
+  margin-top: 3%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 3%;
+  background-color: #005cff;
+  font-family: "Avenir Medium";
+  text-shadow: none;
+  font-size: 1.8em;
+  padding:10px;
+  padding-left: 25px;
+  padding-right: 25px;
+  border-radius: 5px;
+  color:#fff;
+  cursor:  pointer;
+}.agendarCita #citaIcon{
+  height: 25px;
+  width: auto;
+}.agendarLinks{
+  font-size: 1.5em;
+}
+.ui-datepicker{
+  z-index: 999!important;
+}

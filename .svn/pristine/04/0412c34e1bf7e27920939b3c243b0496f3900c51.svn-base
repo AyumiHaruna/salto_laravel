@@ -1,0 +1,61 @@
+.main_row{
+  background-size: cover;
+  padding-top: 10%;
+}
+
+.history_info_container{
+  padding: 3%;
+}
+.history_info{
+  background-color: #fff;
+  font-size: 1.3rem;
+  padding: 20px;
+}
+.history_msg{
+  padding: 10px;
+  font-weight: bold;
+}
+.history_info span{
+  font-family: "Avenir Black";
+  color: #0C93EF;
+  font-size: 2rem;
+}
+
+.calendar_container{
+  padding: 15px;
+}
+#calendar{
+  background-color: #fff;
+}
+
+
+.instructions_container{
+  padding: 3%;
+}
+.instructions{
+  background-color: #fff;
+  font-size: 1.3rem;
+  padding: 15px;
+  padding-left: 20px;
+}
+.instructions_msg{
+  padding: 0px;
+  font-weight: bold;
+}
+.instructions_msg div{
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  display: inline-block;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.ins_msg_1{
+  background-color: #99BAAA;
+}
+.ins_msg_2{
+  background-color: #0C93EF;
+}
+.ins_msg_3{
+  border: solid 2px #0C93EF;
+}

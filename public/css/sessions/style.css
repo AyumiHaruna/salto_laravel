@@ -1,0 +1,125 @@
+body{
+  font-size: 14px;
+}
+
+#mainContainer{
+  background-size: cover;
+  padding-top: 8%;
+}
+#title1{
+  color: #4262aa;
+  font-size: 5rem;
+  margin-bottom: -20px;
+}
+#title2{
+  color: #4262aa;
+  font-size: 3rem;
+  margin-left: 70px;
+  margin-bottom: 40px;
+}
+
+#block1-1{
+  font-family: "Avenir Book";
+  color: #4262aa;
+  font-size: 2.8em;
+  padding-bottom: 5%;
+}
+.spaceMsg{
+  letter-spacing: 5px;
+}
+.normalMsg{
+  padding-left: 10%;
+  font-size: 3.5rem;
+  line-height: 110%;
+}
+.normalMsg span, .normalMsg a{
+  font-family: "Avenir Black";
+  color: #fff;
+  font-weight: bold;
+}
+.normalMsg a{
+  text-decoration: underline;;
+}
+#renewPic{
+  width: 150px;
+}
+#counterDiv{
+  background: #7986fc;
+  background: linear-gradient(to right, #678efe, #7986fc);
+  margin-top: 1%;
+  font-family: "Avenir Black";
+  font-size: 1.5em;
+  color: #fff;
+  border-radius: 5px;
+}
+#msgDiv{
+  background: #7986fc;
+  background: linear-gradient(to right, #678efe, #7986fc);
+  margin-top: 2%;
+  line-height: 50px;
+  font-family: "Avenir Book";
+  font-size: 1.6rem;
+  display:none;
+  border-radius: 5px;
+  color: #fff;
+}
+@keyframes flickerAnimation {
+  0%   { opacity:1; }
+  50%  { opacity:0; }
+  100% { opacity:1; }
+}
+@-o-keyframes flickerAnimation{
+  0%   { opacity:1; }
+  50%  { opacity:0; }
+  100% { opacity:1; }
+}
+@-moz-keyframes flickerAnimation{
+  0%   { opacity:1; }
+  50%  { opacity:0; }
+  100% { opacity:1; }
+}
+@-webkit-keyframes flickerAnimation{
+  0%   { opacity:1; }
+  50%  { opacity:0; }
+  100% { opacity:1; }
+}
+#msgDiv span{
+  -webkit-animation: flickerAnimation 1s infinite;
+  -moz-animation: flickerAnimation 1s infinite;
+  -o-animation: flickerAnimation 1s infinite;
+  animation: flickerAnimation 1s infinite;
+}
+
+
+.dateTag{
+  font-family: "Avenir Book";
+  font-size: 0.4em;
+  margin-top: -10px;
+}
+.button_container{
+  margin-top: 3%;
+  font-size: 2.5rem;
+  display: none;
+}
+.button_container button{
+  padding: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  background-color: #7986fc;
+}
+.button_container button:hover{
+  opacity:0.8;
+}
+
+
+
+#gameContainer{
+  width: 100% !important;
+  background-color: #41444B !important;
+}
+#gameContainer canvas{
+  width: 100% !important;
+}

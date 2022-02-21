@@ -1,0 +1,58 @@
+@IF( $rol == 'administrador' || $rol == 'supervisor' || $rol == 'contador')
+  <!--         MENÚ DE ADMINISTRACIÓN        -->
+  <div class="col-md-12">
+    <ul>
+      @IF( $rol == 'administrador' || $rol == 'supervisor' || $rol == 'contador')
+        <li> <a href="{{ url('admin/dashboard') }}">Dashboard</a> </li>
+      @ENDIF
+      @IF( $rol == 'administrador' || $rol == 'supervisor')
+        <li> <a href="{{ url('admin/database') }}">Bases de Datos</a> </li>
+        <li> <a href="{{ url('admin/calendario') }}">Calendario</a> </li>
+        <li> <a href="{{ url('admin/sesiones') }}">Sesiones</a> </li>
+        <li> <a href="{{ url('admin/blog') }}">Blog</a> </li>
+      @ENDIF
+
+      @IF( $rol == 'administrador' || $rol == 'contador' )
+        <li> <a href="{{ url('admin/finanzas') }}">Finanzas</a> </li>
+      @ENDIF
+    </ul>
+  </div>
+@ENDIF
+
+
+@IF( $rol == 'coach' )
+  <!--         MENÚ DE COACHES        -->
+  <div class="col-md-12">
+    <ul>
+      <li> <a href="{{ url('admin/dashboard') }}">Dashboard</a> </li>
+      <li> <a href="{{ url('coach/perfil') }}">Perfil</a> </li>
+      <li> <a href="{{ url('coach/calendario') }}">Calendario</a> </li>
+      <li> <a href="{{ url('coach/clientes') }}">Clientes</a> </li>
+      <li> <a href="{{ url('coach/sesion') }}">Sesión</a> </li>
+      <li> <a href="{{ url('coach/chat') }}">Chat</a> </li>
+      <li> <a href="{{ url('coach/recursos') }}">Recursos</a> </li>
+      <li> <a href="{{ url('coach/contrato') }}">Contrato</a> </li>
+    </ul>
+  </div>
+@ENDIF
+
+
+@IF( $rol == 'cliente' || $rol == 'cliente_empresa' )
+  <!--         MENÚ DE CLIENTES        -->
+  <div class="col-md-12">
+    <ul>
+      <li> <a href="{{ url('admin/dashboard') }}">Dashboard</a> </li>
+      <li> <a href="{{ url('cliente/perfil') }}">Perfil</a> </li>
+      <li> <a href="{{ url('cliente/calendario') }}">Calendario</a> </li>
+      <li> <a href="{{ url('cliente/clientes') }}">Clientes</a> </li>
+      <li> <a href="{{ url('cliente/sesion') }}">Sesión</a> </li>
+      <li> <a href="{{ url('cliente/chat') }}">Chat</a> </li>
+      <li> <a href="{{ url('cliente/recursos') }}">Recursos</a> </li>
+      <li> <a href="{{ url('cliente/contrato') }}">Contrato</a> </li>
+    </ul>
+  </div>
+@ENDIF
+
+<div class="">
+  <a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a>
+</div>

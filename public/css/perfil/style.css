@@ -1,0 +1,112 @@
+#mainContainer{
+  margin-top: 7%;
+}
+#title1{
+  color: #4262aa;
+  font-size: 5rem;
+  margin-bottom: -20px;
+}
+#title2{
+  color: #4262aa;
+  font-size: 3rem;
+  margin-left: 70px;
+}
+.canUpdate{
+  color: #4262AA;
+}
+.hasModal{
+  cursor:pointer;
+  width: auto;
+}
+#formContainer{
+  margin-bottom:5%;
+}
+.formBlockLeft{
+  padding-left: 15%;
+  padding-right: 8%;
+}
+.formBlockRight{
+  padding-left: 8%;
+  padding-right: 15%;
+}
+label{
+  margin-top: 5%;
+  margin-bottom: 0px;
+  font-size: 0.9em;
+}
+input, textarea{
+  font-size: 1.3rem !important;
+  line-height: 2.2rem !important;
+  border-radius: 2px;
+  -webkit-box-shadow: 5px 5px 11px -7px rgba(56,56,56,1);
+  -moz-box-shadow: 5px 5px 11px -7px rgba(56,56,56,1);
+  box-shadow: 5px 5px 11px -7px rgba(56,56,56,1);
+}
+#cv{
+  background-color: #8784F8;
+  color: #fff;
+  border-radius: 3px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+#perfilPhoto{
+  height: 150px;
+  width: auto;
+  border-radius: 50%;
+}
+.editIcon{
+  display:none;
+  margin-right: 5px;
+}
+.transparentDiv{
+  background-color: rgb(0,0,0, 0.5);
+  z-index: 8;
+  position: fixed;
+  height: 100vh;
+  width: 100%;
+  top:0;
+  display:none;
+}
+.alert-div{
+  background-color: #fff;
+  z-index: 9;
+  position: fixed;
+  top: 15%;
+  padding: 10px;
+  border-radius: 3px;
+  -webkit-box-shadow: 0px 2px 5px 0px rgba(122,122,122,1);
+  -moz-box-shadow: 0px 2px 5px 0px rgba(122,122,122,1);
+  box-shadow: 0px 2px 5px 0px rgba(122,122,122,1);
+  display:none;
+  text-align: center;
+}
+.hiddenForm{
+  background-color: #fff;
+  border-radius: 3px;
+  z-index: 9;
+  position: fixed;
+  top: 35%;
+  display:none;
+  padding-bottom: 2%;
+}
+.hiddenForm_header{
+  background-color: #4262AA;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  padding: 15px;
+  color: #fff;
+  margin-bottom: 2%;
+}
+.closeBtn{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: none;
+  color: #fff;
+}
+.closeBtn:hover{
+  opacity: 0.5;
+}
+.ajax-upload-dragdrop{
+  width: 100% !important;
+}

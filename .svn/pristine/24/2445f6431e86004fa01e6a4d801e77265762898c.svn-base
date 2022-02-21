@@ -1,0 +1,24 @@
+@extends('layouts.mainLayout')
+
+  @section('title') Sesiones @endsection
+
+  @section('extraheader')
+    <link rel="stylesheet" href="{{ asset('css/sessions/style.css') }}">
+    <script src="{{ asset('js/webGL/UnityLoader.js') }}"></script>
+    <script>
+      // var gameInstance = UnityLoader.instantiate("gameContainer", "webGL/videochat.json");
+      var gameInstance = UnityLoader.instantiate("gameContainer", "{{ asset('js/webGL/videochat.json') }}");
+    </script>
+  @endsection
+
+
+  @section('content')
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12" style="padding:0">
+              <div id="gameContainer"></div>
+          </div>
+        </div>
+      </div>
+
+  @endsection

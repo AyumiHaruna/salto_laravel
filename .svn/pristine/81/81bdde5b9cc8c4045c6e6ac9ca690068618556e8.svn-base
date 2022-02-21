@@ -1,0 +1,62 @@
+<!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top navVoid" id="mainNav">
+    <div class="container-fluid">
+      <a class="navbar-brand js-scroll-trigger" href="#"> <img src="<?php echo e(asset('img/info/saltumlogocolor.png')); ?>" alt="" id="brandLogo">  </a>
+      <button class="navbar-toggler navbar-toggler-right custom-toggler-white" type="button">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <?php if(Session('role') === NULL): ?>
+            <?php echo e(Session('role')); ?>
+
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger navBtn <?php echo e(Request::is('/') ? 'navActive' : ''); ?>" href="#" >Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger navBtn <?php echo e(Request::is('blog/*') ? 'navActive' : ''); ?>" href="#" >Nosotros</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger navBtn <?php echo e(Request::is('blog/*') ? 'navActive' : ''); ?>" href="#" >Suscripción</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger navBtn <?php echo e(Request::is('blog/*') ? 'navActive' : ''); ?>" href="#" >Blog</a>
+            </li>
+          <?php else: ?>
+            <?php $__currentLoopData = Session('menu_info'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $group_item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+              <?php if(sizeOf($group_item->permissions) > 1): ?>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle <?php 
+                    if(isset($section) && ($section->group == $group_item->id)){ 
+                      echo 'navActive'; 
+                   }?>" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <?php echo e($group_item->display_name); ?>
+
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <?php $__currentLoopData = $group_item->permissions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $menu_item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <a class="nav-link js-scroll-trigger navBtn <?php echo e(Request::is($menu_item->name.'*') ? 'navActive' : ''); ?>" href="<?php echo e(env('PUBLIC_URL', 'http://localhost/public').'/'.$menu_item->name); ?>" id="<?php echo e($menu_item->name); ?>"><?php echo e($menu_item->display_name); ?></a>
+                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                  </div>
+                </li>
+              <?php elseif(sizeOf($group_item->permissions) > 0): ?>
+                <li class="nav-item">
+                  <a class="nav-link js-scroll-trigger navBtn <?php echo e(Request::is($group_item->permissions[0]->name.'*') ? 'navActive' : ''); ?>" href="<?php echo e(env('PUBLIC_URL', 'http://localhost/public').'/'.$group_item->permissions[0]->name); ?>" id="<?php echo e($group_item->permissions[0]->name); ?>"><?php echo e($group_item->permissions[0]->display_name); ?></a>
+                </li>
+              <?php endif; ?>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+          <?php endif; ?>
+          <?php if( !isset(Auth::user()->name) ): ?>
+            <!-- <li class="nav-item loginNav">
+              <a class="nav-link js-scroll-trigger navBtn" href="<?php echo e(url('/login')); ?>"> <img src="<?php echo e(asset('img/info/icono_iniciarsesion.png')); ?>" alt="" id="Inicio">Iniciar Sesión</a>
+            </li> -->
+          <?php else: ?>
+            <li class="nav-item loginNav">
+              <a class="nav-link js-scroll-trigger navBtn" href="<?php echo e(url('/logout')); ?>"> <img src="<?php echo e(asset('img/info/icono_iniciarsesion.png')); ?>" alt="" id="Inicio">Cerrar Sesión</a>
+            </li>
+          <?php endif; ?>
+        </ul>
+      </div>
+    </div>
+  </nav>

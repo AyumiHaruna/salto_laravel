@@ -1,0 +1,133 @@
+#mainContainer{
+  padding-top: 8%;
+  padding-bottom: 5%;
+  background-size: cover;
+  font-family: "Avenir Medium";
+}
+#title1{
+  color: #4262aa;
+  font-size: 5rem;
+  margin-bottom: 2%;
+  font-family: "Raleway"
+}
+.leftBlock{
+  padding-left: 5%;
+  padding-right: 3%;
+  font-size: 1.5rem;
+}
+.rightBlock{
+  padding-left: 3%;
+  padding-right: 5%;
+}
+#blockMsg{
+  background: #7986fc;
+  background: linear-gradient(to right, #79c6fc, #6588fe);
+  text-align: justify;
+  padding: 8%;
+  padding-top: 10%;
+  padding-bottom: 10%;
+  color: #fff;
+  height: 40vh;
+}
+#blockResource{
+  background: #fff;
+  padding: 8%;
+  padding-top: 10%;
+  padding-bottom: 10%;
+  height: 40vh;
+  overflow-y: auto;
+  -webkit-box-shadow: 5px 5px 5px 0px rgba(179,179,179,1);
+-moz-box-shadow: 5px 5px 5px 0px rgba(179,179,179,1);
+box-shadow: 5px 5px 5px 0px rgba(179,179,179,1);
+}
+#blockResource a{
+  font-family: "Avenir Medium";
+  color: #6B6B6B;
+  font-size: 1.2rem;
+}
+#blockResource a:hover{
+  color: #4262AA;
+}
+#pdficon{
+  width: 100%;
+}
+#newResourceBtn{
+  font-family: "Avenir Book";
+  color: #fff;
+  font-size: 1.3rem;
+  background: #8784F8;
+  padding: 10px;
+  padding-left: 25px;
+  padding-right: 25px;
+  margin-top: 5%;
+}
+
+
+.transparencyBG{
+  background-color: rgba(0,0,0, 0.5);
+  height: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 9;
+  display:none;
+}
+.hoverBlock{
+  z-index: 10;
+  position:fixed;
+  top: 20%;
+  display:none;
+}
+.hoverForm{
+  background-color: #fff;
+}
+#block_form_header{
+  background-color: #4262AA;
+  font-size: 1.5rem;
+  padding: 20px;
+}
+.formTitle{
+  color: #fff;
+
+}
+.closeFormBtn{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  border: none;
+  background: none;
+  color: #fff;
+  cursor: pointer;
+}
+#block_form_body{
+  padding: 20px;
+}
+#block_form_footer{
+  padding-bottom: 15px;
+}
+#sendBtn{
+  font-family: "Avenir Book";
+  color: #fff;
+  background: #8784F8;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+
+.grayFont{
+  color: #7f7f7f;
+}
+.blackFont{
+  color: #333;
+}
+.greenFont{
+  color: #009933;
+}
+.redFont{
+  color: #ff0000;
+}
+
+
+
+.editResourceBtn, .delResourceBtn{
+    background-color: #fff;
+}

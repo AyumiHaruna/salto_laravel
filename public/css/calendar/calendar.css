@@ -1,0 +1,492 @@
+#main_container{
+  background-size: cover;
+}
+#titleContainer{
+  margin-top: 5%;
+  color: #4262aa;
+  font-size: 5rem;
+  margin-bottom: -20px;
+}
+.transparency{
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0,0,0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  display: none;
+}
+.loading{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 6;
+  background-color: rgba(255,255,255,0.3);
+  height: 100vh;
+  /* display:none; */
+}
+.loading i{
+  position: absolute;
+  top: 30%;
+  left: 47%;
+}
+.picSelected{
+  position: absolute;
+  width: 10px;
+  display:none;
+  z-index: 3;
+}
+
+.actionBtnContainer{
+  position: absolute;
+  top:70%;
+}
+
+.sessionListContainer{
+  z-index: 3;
+  display: none;
+  position: absolute;
+  /* top: 20%; */
+  min-height: 55vh;
+  max-height: 55vh;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 5px 30px 0px rgba(0,0,0,0.55);
+  -moz-box-shadow: 0px 5px 30px 0px rgba(0,0,0,0.55);
+  box-shadow: 0px 5px 30px 0px rgba(0,0,0,0.55);
+  overflow-y: auto;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.sessionListHeader{
+  border: solid 2px #0C93EF;
+  /* background: #b3b3b3; */
+  background-color: #fff;
+  text-align: center;
+  padding: 10px;
+  color: #000;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.sessionListContainer .closeList{
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  color: #000;
+  border: none;
+  box-shadow: none;
+  background-color: #fff;
+}
+.sessionListContainer .closeList:hover{
+  opacity: 0.6;
+}
+.sessionListLabel{
+  font-weight: bold;
+}
+.taskContainer{
+  padding: 1px;
+}
+.sessionTask{
+  margin-bottom: 5px;
+}
+
+
+.form-container{
+  z-index: 5;
+  background-color: #fff;
+  border-top-left-radius: 10px ;
+  border-top-right-radius: 10px ;
+  position: fixed;
+  top: 18%;
+  display: none;
+  /* max-height: 75vh; */
+  /* overflow-y: scroll; */
+}
+.form-header{
+  background-color: #3366ff;
+  color: #fff;
+  border-top-left-radius: 10px ;
+  border-top-right-radius: 10px ;
+  padding: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: left;
+  font-family: "Raleway Bold";
+  font-size: 1.5rem;
+}
+.closeFormBtn{
+  background: none;
+  border: none;
+  /* box-shadow: none; */
+  color: #fff;
+  position: absolute;
+  right: 10px;
+}
+.closeFormBtn:hover{
+  opacity: 0.5;
+}
+.form-body{
+  padding-top: 15px;
+  padding-bottom: 15px;
+  max-height: 60vh;
+  overflow-y: scroll;
+}
+.form-body label{
+  color: #333;
+  font-size: 1.5rem;
+}
+.formAlert{
+  background-color: #fff5cc;
+  padding: 5px;
+  color: #665200
+}
+#form_info_container{
+  font-size: 1.3rem;
+}
+#form_info_container .span_label{
+  font-size: 1.5rem;
+    color: #333;
+    margin-right: 10px;
+}
+.form-footer{
+  padding-top: 15px;
+  padding-bottom: 15px;
+  text-align: right;
+}
+.form-footer .btn{
+  margin-left: 10px;
+}
+
+
+
+
+
+.circleBtn{
+  width: 59px;
+  height: 59px;
+  text-align: center;
+  padding: 5px 0;
+  font-size: 20px;
+  line-height: 2.00;
+  border-radius: 30px;
+  -webkit-box-shadow: 1px 5px 8px 0px rgba(74,74,74,1);
+  -moz-box-shadow: 1px 5px 8px 0px rgba(74,74,74,1);
+  box-shadow: 1px 5px 8px 0px rgba(74,74,74,1);
+  color: #0066ff;
+  margin-bottom: 10%;
+  margin-left: 1%
+}
+
+
+
+#session_count_container{
+  padding:4%;
+  margin-top: 20px;
+}
+#session_count{
+  background-color: #fff;
+  padding: 15px;
+  -webkit-box-shadow: 5px 5px 5px 0px rgba(179,179,179,1);
+  -moz-box-shadow: 5px 5px 5px 0px rgba(179,179,179,1);
+  box-shadow: 5px 5px 5px 0px rgba(179,179,179,1);
+}
+#session_count div{
+  font-size: 1rem;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+#session_count span{
+  font-size: 2rem;
+  color: #0C93EF;
+}
+
+#session_search{
+  margin-top: 5%;;
+  background-color: #fff;
+  padding: 15px;
+  -webkit-box-shadow: 5px 5px 5px 0px rgba(179,179,179,1);
+  -moz-box-shadow: 5px 5px 5px 0px rgba(179,179,179,1);
+  box-shadow: 5px 5px 5px 0px rgba(179,179,179,1);
+}
+#session_search select{
+  margin-top: 5px;
+}
+#watchCoachBtn{
+  margin-top: 10px;
+  background: #8784f8;
+  padding:5px;
+  color: #fff;
+}
+
+
+
+#session_info_container{
+  padding:4%;
+  margin-top: 20px;
+}
+#session_info{
+  background-color: #fff;
+  padding: 5px;
+  height: 40vh;
+  overflow-y: scroll;
+  -webkit-box-shadow: 5px 5px 5px 0px rgba(179,179,179,1);
+  -moz-box-shadow: 5px 5px 5px 0px rgba(179,179,179,1);
+  box-shadow: 5px 5px 5px 0px rgba(179,179,179,1);
+}
+#session_info div{
+  font-size: 1rem;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+#session_info .square-info{
+  display: inline-block;
+  padding: 5px;
+  padding-left: 7%;
+  padding-right: 7%;
+  margin-right: 5px;
+  border-radius: 5px;
+}
+#session_info .square-text{
+  display: inline-block;
+  font-weight: bold;
+}
+#session_info #sqAgendado{
+  background-color: #E6E6E6;
+}
+#session_info #sqConfirmado{
+  background-color: #0C93EF;
+}
+#session_info #sqDisponible{
+  background-color: #fff;
+  border: solid 2px #0C93EF;
+}
+#session_info #sqCancelado{
+  background-color: #fff;
+  border:  solid 2px #b11920;
+}
+#session_info #sqAtendido{
+  background-color: #99BAAA;
+}
+#session_info #sqNoAtendido{
+  background-color: #fff;
+  border:  solid 2px #ff8000;
+}
+#session_info #sqProcess{
+  background-color: #006600;
+}
+
+
+
+
+#calendar_main_content{
+  padding: 20px;
+  padding-right:0;
+  padding-left:0;
+  margin-top: 20px;
+  margin-bottom: 5%;
+  -webkit-box-shadow: 5px 5px 5px 0px rgba(179,179,179,1);
+  -moz-box-shadow: 5px 5px 5px 0px rgba(179,179,179,1);
+  box-shadow: 5px 5px 5px 0px rgba(179,179,179,1);
+}
+#calendar {
+  background-color: #fff;
+  padding: 30px;
+}
+#msg_board{
+  margin-top: 3%;
+  background: rgba(255,255,255, 0.5);
+  padding-left: 0px;
+  -webkit-box-shadow: 5px 5px 5px 0px rgba(179,179,179,1);
+  -moz-box-shadow: 5px 5px 5px 0px rgba(179,179,179,1);
+  box-shadow: 5px 5px 5px 0px rgba(179,179,179,1);
+}
+#msg_board li{
+  margin-top: 10px;
+}
+.fc-header-toolbar{
+  padding: 10px;
+}
+.fc-prev-button{
+  position: absolute !important;
+  left: 10%;
+  top: 55px;
+  font-size: 1.5rem !important;
+  border: none;
+  background: #fff;
+  box-shadow: none;
+  z-index: 2!important;
+}
+.fc-next-button{
+  position: absolute !important;
+  right: 10%;
+  top: 55px;
+  font-size: 1.5rem !important;
+  border: none;
+  background: #fff;
+  box-shadow: none;
+  z-index: 2!important;
+}
+.fc-prev-button:hover, .fc-next-button:hover{
+  /* background-color: #f2f2f2; */
+  opacity: 0.5;
+}
+.fc-today-button{
+  display:none;
+}
+.fc-left{
+  float: none !important;
+}
+.fc-left h2{
+  float: none !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: fit-content;
+  cursor: pointer;
+  font-weight: bold;
+  letter-spacing: 8px;
+}
+.fc-left h2:first-letter{
+  text-transform: capitalize;
+}
+.fc-content-skeleton tbody{
+  /* display:none; */
+}
+fc-row fc-week fc-widget-content
+.fc-row, .fc-week, .fc-widget-content, .fc-day-grid-container{
+  height: auto !important;
+}
+.fc-day-number, .fc-day-top{
+  float: none !important;
+  text-align: center;
+  border-radius: 5px !important;
+}
+.fc-content-skeleton{
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.fc td, .fc td.fc-today{
+  border: none;
+}
+
+
+
+.agendado{
+  padding: 10px;
+  border:  solid 5px #E6E6E6;
+  background: #fff;
+}
+.agendado:hover{
+  opacity: 0.5;
+  cursor: pointer;
+}
+.agendado .sessionListLabel{
+  color: #0C93EF;
+}
+.confirmado{
+  padding: 10px;
+  background-color: #0C93EF;
+  border:  solid 5px #0C93EF;
+  color: #fff;
+}
+.cancelado{
+  padding: 10px;
+  border:  solid 5px #b11920;
+  background: #fff;
+}
+.atendido{
+  padding: 10px;
+  background-color: #99BAAA;
+  border:  solid 5px #99BAAA;
+  color: #fff;
+}
+.noAtendido{
+  padding: 10px;
+  border:  solid 5px #ff8000;
+}
+.noAtendido .sessionListLabel{
+  color: #ff8000;
+}
+.disponible{
+  padding: 10px;
+  border:  solid 5px #0C93EF;
+  background: #fff;
+}
+.disponible:hover{
+  opacity: 0.5;
+  cursor: pointer;
+}
+.disponible .sessionListLabel{
+  color: #0C93EF;;
+}
+.oculto{
+  padding: 10px;
+  display: hidden;
+}
+.disabled{
+  padding: 10px;
+  background-color: #595959;
+  border:  solid 5px #595959;
+  color: #fff;
+}
+.inProcess{
+  padding: 10px;
+  background-color: #006600;
+  border:  solid 5px #006600;
+  color: #fff;
+}
+
+
+.fc-day-top:hover{
+  opacity: 0.5;
+  cursor: pointer;
+}
+.NOagendado span{
+  display: inline-block; overflow: hidden;
+  width: 40%;
+  background: #E6E6E6 !important;
+  color: #0C93EF !important;
+}
+.NOconfirmado span{
+  display: inline-block; overflow: hidden;
+  width: 40%;
+  background-color: #0C93EF !important;
+  color: #fff;
+}
+.NOdisponible span{
+  display: inline-block; overflow: hidden;
+  width: 40%;
+  background-color: #fff !important;
+  border: solid 2px #0C93EF !important;
+}
+.NOcancelado span{
+  display: inline-block; overflow: hidden;
+  width: 40%;
+  background-color: #fff !important;
+  border:  solid 2px #b11920 !important;
+}
+.NOatendido span{
+  display: inline-block; overflow: hidden;
+  width: 40%;
+  color: #fff !important;
+  background-color: #99BAAA !important;
+}
+.NOnoAtendido span{
+  display: inline-block; overflow: hidden;
+  width: 40%;
+  background-color: #fff !important;
+  border:  solid 2px #ff8000 !important;
+}
+.NOinProcess span{
+  display: inline-block; overflow: hidden;
+  width: 40%;
+  background-color: #006600 !important;
+  color: #fff !important;
+}
+.NOoculto:hover{
+  opacity: 1 !important;
+  cursor: default !important;
+}

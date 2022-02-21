@@ -1,0 +1,12 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class UsersXcoaches extends Model
+{
+  protected $table = 'usersXcoaches';
+
+  protected $fillable = ['id_user', 'id_coach'];
+}

@@ -1,0 +1,37 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests;
+use Illuminate\Http\Request;
+use App\BlogTemas;
+use App\Contacto;
+use Mail;
+
+class IndexController extends Controller
+{
+    public function index()
+    {
+      $temas = BlogTemas::get();
+      return view('welcome')->with([ 'temas' => $temas ]);
+    }
+
+    public function submitComments()
+    {
+        //save contact form info
+        $query = Contacto::create(['nombre' => $_POST['nombre'],
+                                          'correo' => $_POST['correo'],
+                                          'mensaje' => $_POST['mensaje']]);
+
+        $data = $_POST;
+        //send mail to contact
+        \Mail::send('emails.contacto', ['data' => $data], function($message) use ($data){
+            $message->from("SALTUM", "luis_sern@outlook.com");
+            $message->subject("Saltum - contacto de ".$data['correo']);
+            $message->to('luis_sern@outlook.com');
+        });
+
+        echo 'ok';
+    }
+    
+}

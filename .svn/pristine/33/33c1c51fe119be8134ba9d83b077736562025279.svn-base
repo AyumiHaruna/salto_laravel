@@ -1,0 +1,15 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class BlogPost extends Model
+{
+  protected $table = 'blogPost';
+
+  protected $fillable = ['foto', 'titulo', 'mensaje', 'id_usuario', 'visible', 'likes', 'publiDate'];
+
+  public $timestamps = true;
+
+}

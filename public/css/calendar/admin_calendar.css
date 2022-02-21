@@ -1,0 +1,40 @@
+.admin_data_info_container{
+  padding: 10px 30px;
+  font-family: "Avenir Medium";
+}
+.admin_data_info{
+  padding: 10px 10px !important;
+  background-color: #f1f1f2;
+  margin-bottom: 20px
+}
+.admin_data_block{
+  background-color: #fff;
+  margin-bottom: 15px;
+  padding: 3px;
+}
+.admin_data_square{
+  padding: 5px;
+  background-color: #fff;
+  color: #fff;
+  font-size: 1.5rem;
+}
+.square_green{
+  background-color: #94daa7;
+}
+.square_yellow{
+  background-color: #e17e0b;
+}
+.square_pink{
+  background-color: #d41586;
+}
+.square_gray{
+  background-color: #f1f1f2;
+  color: #929497;
+}
+.square_info_black{
+  color: #6D6E70;
+  font-size: 1rem;
+}
+.square_info_gray{
+
+}

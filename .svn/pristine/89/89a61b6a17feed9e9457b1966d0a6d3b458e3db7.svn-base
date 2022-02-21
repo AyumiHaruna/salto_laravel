@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>SALTUM | @yield('title')</title>
+    @include('partials._header')
+    @yield('extraheader')
+  </head>
+  <body>
+    @include('partials._menu')
+    @include('partials._alert')
+    @yield('content')
+    @include('partials._footer')
+  </body>
+  @yield('jqueryScripts')
+</html>
